@@ -70,7 +70,7 @@ namespace ApplicationSpace
 
         List<triple_t> m_triples = new List<triple_t>();
         int m_fitness = -1;
-        int m_index = -1;
+        //int m_index = -1;
 
 
         /********************************************************************
@@ -79,16 +79,16 @@ namespace ApplicationSpace
 
         public static int Capacity { get { return Chromosome.m_capacity; } }
         public int Fitness { get { return m_fitness; } }
-        public int Index { set { m_index = value; } get { return m_index; } }
+        //public int Index { set { m_index = value; } get { return m_index; } }
         public int Size { get { return m_triples.Count; } }
 
         /********************************************************************
          *          Methods 
          ********************************************************************/ 
 
-        public Chromosome(int index)
+        public Chromosome(/*int index*/)
         {
-            m_index = index;
+            //m_index = index;
         }
 
         static public void StaticInitialize()

@@ -74,7 +74,7 @@ namespace ApplicationSpace
             m_chromosomes = new List<Chromosome>();
             for (int i = 0; i < m_population; i++)
             {
-                Chromosome chromosome = new Chromosome(i);
+                Chromosome chromosome = new Chromosome(/*i*/);
                 chromosome.Randomize();
                 chromosome.UpdateFitness();
                 m_chromosomes.Add(chromosome);
@@ -158,7 +158,7 @@ namespace ApplicationSpace
                 // Crossover
                 if (m_random.NextDouble() < m_Pc)
                 {
-                    offspring = new Chromosome(next_chromosomes.Count + 1);
+                    offspring = new Chromosome();
                     offspring.Crossover(first, second);
                 }
                 else
@@ -168,7 +168,6 @@ namespace ApplicationSpace
                         offspring = first;
                     else
                         offspring = second;
-                    offspring.Index = next_chromosomes.Count + 1;
                 }
 
                 // Mutation 
@@ -177,6 +176,7 @@ namespace ApplicationSpace
                     //offspring.Mutate();
                 }
 
+                //offspring.Index = next_chromosomes.Count + 1;
                 offspring.UpdateFitness();
                 next_chromosomes.Add(offspring);
             }
