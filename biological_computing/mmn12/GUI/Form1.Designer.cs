@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -42,7 +41,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.MutationProbabilityTextBox = new System.Windows.Forms.TextBox();
             this.PauseButton = new System.Windows.Forms.Button();
-            this.Timer = new System.Windows.Forms.Timer(this.components);
             this.InitializeButton = new System.Windows.Forms.Button();
             this.StepButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ChartControl)).BeginInit();
@@ -138,11 +136,6 @@
             this.PauseButton.UseVisualStyleBackColor = true;
             this.PauseButton.Click += new System.EventHandler(this.PauseButton_Click);
             // 
-            // Timer
-            // 
-            this.Timer.Interval = 1;
-            this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
-            // 
             // InitializeButton
             // 
             this.InitializeButton.Location = new System.Drawing.Point(735, 249);
@@ -197,7 +190,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox MutationProbabilityTextBox;
         private System.Windows.Forms.Button PauseButton;
-        private System.Windows.Forms.Timer Timer;
         private System.Windows.Forms.Button InitializeButton;
         private System.Windows.Forms.Button StepButton;
     }
