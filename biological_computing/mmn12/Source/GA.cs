@@ -99,7 +99,7 @@ namespace ApplicationSpace
             }
 
             // sort descending order 
-            m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return y.Fitness.CompareTo(x.Fitness); });
+            //m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return y.Fitness.CompareTo(x.Fitness); });
 
             // While trying to minimaze fiteness, filter only the X% lower chromosones 
             //  X is the 'selection threshold' 
