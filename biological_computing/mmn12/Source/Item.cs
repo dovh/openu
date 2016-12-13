@@ -51,7 +51,7 @@ namespace ApplicationSpace
             while (m_second_preferences.Count < Chromosome.Capacity)
             {
                 do item = (int)(GA.NextRandom * Chromosome.Capacity);
-                while (m_second_preferences.ContainsKey(item));
+                    while (m_second_preferences.ContainsKey(item));
 
                 m_second_preferences[item] = preference;
                 preference++;

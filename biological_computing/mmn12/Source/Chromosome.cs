@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace ApplicationSpace
 {
-    class Chromosome
+    class Chromosome 
     {
         /********************************************************************
          *          Typedefs 
@@ -79,7 +79,8 @@ namespace ApplicationSpace
 
         public static int Capacity { get { return Chromosome.m_capacity; } }
         public int Fitness { get { return m_fitness; } }
-        public int Index { set { m_index = value; } }
+        public int Index { set { m_index = value; } get { return m_index; } }
+        public int Size { get { return m_triples.Count; } }
 
         /********************************************************************
          *          Methods 
@@ -152,7 +153,7 @@ namespace ApplicationSpace
                 fitness += women.preference_first(triple.Men);
                 fitness += women.preference_second(triple.Dog);
                 fitness += dog.preference_first(triple.Men);
-                fitness += dog.preference_second(triple.Dog);
+                fitness += dog.preference_second(triple.Women);
 
                 triple.Fitness = fitness;
                 m_fitness += fitness;
@@ -206,9 +207,9 @@ namespace ApplicationSpace
             for (int i = position; i < m_capacity; i++)
                 m_triples.Add(second.m_triples[i].DeepClone());
 
-            fix_errors(new Men());
-            fix_errors(new Women());
-            fix_errors(new Dog());
+            //fix_errors(new Men());
+            //fix_errors(new Women());
+            //fix_errors(new Dog());
 
             //UpdateFitness();
         }
