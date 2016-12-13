@@ -80,9 +80,6 @@ namespace ApplicationSpace
                 m_chromosomes.Add(chromosome);
             }
 
-            // for debug 
-            //m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return y.Fitness.CompareTo(x.Fitness); });
-
             update();
         }
 
@@ -151,11 +148,8 @@ namespace ApplicationSpace
             update();
             m_dbg_histogram.Clear();
 
-            //for (int i = 0; i < m_population; i++)
             while(next_chromosomes.Count < m_population)
             {
-                //m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return y.Fitness.CompareTo(x.Fitness); });
-
                 // Selection
                 Chromosome first = Select();
                 Chromosome second = Select();
@@ -189,8 +183,6 @@ namespace ApplicationSpace
 
             // step to next generation 
             m_chromosomes = next_chromosomes;
-
-            //m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return y.Fitness.CompareTo(x.Fitness); });
 
             update();
         }
