@@ -1,0 +1,2 @@
+Initial state: ud0 d0d1 d1d2 d2pc upa upb
+Goal state: d0d1 d1d2 d2pa 

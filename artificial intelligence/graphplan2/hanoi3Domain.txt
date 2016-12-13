@@ -1,0 +1,155 @@
+Propositions:
+d0d1 d0d2 d0pa d0pb d0pc d1d2 d1pa d1pb d1pc d2pa d2pb d2pc upa upb upc ud0 ud1 ud2 
+Actions:
+Name: Md0d1d2 
+pre: d0d1 ud0 ud2
+add: d0d2 ud1
+delete: d0d1 ud2 
+Name: Md0d2d1 
+pre: d0d2 ud0 ud1
+add: d0d1 ud2
+delete: d0d2 ud1 
+Name: Md0d1pa 
+pre: d0d1 ud0 upa
+add: d0pa ud1
+delete: d0d1 upa 
+Name: Md0d1pb 
+pre: d0d1 ud0 upb
+add: d0pb ud1
+delete: d0d1 upb 
+Name: Md0d1pc 
+pre: d0d1 ud0 upc
+add: d0pc ud1
+delete: d0d1 upc 
+Name: Md0d2pa 
+pre: d0d2 ud0 upa
+add: d0pa ud2
+delete: d0d2 upa 
+Name: Md0d2pb 
+pre: d0d2 ud0 upb
+add: d0pb ud2
+delete: d0d2 upb 
+Name: Md0d2pc 
+pre: d0d2 ud0 upc
+add: d0pc ud2
+delete: d0d2 upc 
+Name: Md1d2pa 
+pre: d1d2 ud1 upa
+add: d1pa ud2
+delete: d1d2 upa 
+Name: Md1d2pb 
+pre: d1d2 ud1 upb
+add: d1pb ud2
+delete: d1d2 upb 
+Name: Md1d2pc 
+pre: d1d2 ud1 upc
+add: d1pc ud2
+delete: d1d2 upc 
+Name: Md0pad1 
+pre: d0pa ud0 ud1
+add: d0d1 upa
+delete: d0pa ud1 
+Name: Md0pad2 
+pre: d0pa ud0 ud2
+add: d0d2 upa
+delete: d0pa ud2 
+Name: Md0pbd1 
+pre: d0pb ud0 ud1
+add: d0d1 upb
+delete: d0pb ud1 
+Name: Md0pbd2 
+pre: d0pb ud0 ud2
+add: d0d2 upb
+delete: d0pb ud2 
+Name: Md0pcd1 
+pre: d0pc ud0 ud1
+add: d0d1 upc
+delete: d0pc ud1 
+Name: Md0pcd2 
+pre: d0pc ud0 ud2
+add: d0d2 upc
+delete: d0pc ud2 
+Name: Md1pad2 
+pre: d1pa ud1 ud2
+add: d1d2 upa
+delete: d1pa ud2 
+Name: Md1pbd2 
+pre: d1pb ud1 ud2
+add: d1d2 upb
+delete: d1pb ud2 
+Name: Md1pcd2 
+pre: d1pc ud1 ud2
+add: d1d2 upc
+delete: d1pc ud2 
+Name: Md0papb 
+pre: d0pa ud0 upb
+add: d0pb upa
+delete: d0pa upb 
+Name: Md0papc 
+pre: d0pa ud0 upc
+add: d0pc upa
+delete: d0pa upc 
+Name: Md0pbpa 
+pre: d0pb ud0 upa
+add: d0pa upb
+delete: d0pb upa 
+Name: Md0pbpc 
+pre: d0pb ud0 upc
+add: d0pc upb
+delete: d0pb upc 
+Name: Md0pcpa 
+pre: d0pc ud0 upa
+add: d0pa upc
+delete: d0pc upa 
+Name: Md0pcpb 
+pre: d0pc ud0 upb
+add: d0pb upc
+delete: d0pc upb 
+Name: Md1papb 
+pre: d1pa ud1 upb
+add: d1pb upa
+delete: d1pa upb 
+Name: Md1papc 
+pre: d1pa ud1 upc
+add: d1pc upa
+delete: d1pa upc 
+Name: Md1pbpa 
+pre: d1pb ud1 upa
+add: d1pa upb
+delete: d1pb upa 
+Name: Md1pbpc 
+pre: d1pb ud1 upc
+add: d1pc upb
+delete: d1pb upc 
+Name: Md1pcpa 
+pre: d1pc ud1 upa
+add: d1pa upc
+delete: d1pc upa 
+Name: Md1pcpb 
+pre: d1pc ud1 upb
+add: d1pb upc
+delete: d1pc upb 
+Name: Md2papb 
+pre: d2pa ud2 upb
+add: d2pb upa
+delete: d2pa upb 
+Name: Md2papc 
+pre: d2pa ud2 upc
+add: d2pc upa
+delete: d2pa upc 
+Name: Md2pbpa 
+pre: d2pb ud2 upa
+add: d2pa upb
+delete: d2pb upa 
+Name: Md2pbpc 
+pre: d2pb ud2 upc
+add: d2pc upb
+delete: d2pb upc 
+Name: Md2pcpa 
+pre: d2pc ud2 upa
+add: d2pa upc
+delete: d2pc upa 
+Name: Md2pcpb 
+pre: d2pc ud2 upb
+add: d2pb upc
+delete: d2pc upb 

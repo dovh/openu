@@ -1,0 +1,36 @@
+Name,Language,Style,Performer,Period,Length,Theme,Like
+Angie,English,Rock,Rolling Stones,70,Short,Love,+
+Hotel California,English,Rock,Eagles,70,Long,Geograpic Place,-
+You Can't Always Get What You Want,English,Rock,Rolling Stones,70,Long,Life,-
+My Way,English,Pop,Frank Sinatra,60,Long,Life,+
+My Way,English,Pop,Nina Hagan,80,Long,Life,-
+Five Minutes More,English,Jazz,Frank Sinatra,40,Short,Love,-
+New York New York,English,Jazz,Frank Sinatra,70,Short,Geograpic Place,+
+Blue Deep Night,Hebrew,Pop,Rita,90,Long,Love,+
+Blue Deep Night,Hebrew,Pop,Shlomo Yid-vav,90,Long,Love,-
+My Beautiful,Hebrew,Eastern,Eyal Golan,90,Long,Love,+
+Chiquitita,English,Pop,ABBA,70,Long,Life,+
+Me and You,Hebrew,Rock,Arik Einstein,70,Short,Life,+
+Take Me Under Your Wing,Hebrew,Pop,Rita,80,Long,Love,-
+All You Need Is Love,English,Rock,Beatles,60,Short,Love,+
+Hey Jude,English,Rock,Beatles,60,Long,Life,-
+It ain't necessarily so,English,Jazz,Ella Fitzgerald,30,Long,Movies,-
+It ain't necessarily so,English,Jazz,Bronski Beat,80,Long,Movies,-
+Give Her My Life,Hebrew,Rock,Kaveret,70,Short,Love,+
+Ballad For Policeman,Hebrew,Rock,Oshik Levi,70,Short,Movies,+
+Kazablan,Hebrew,Pop,Yehoram Gaon,60,Short,Movies,+
+One Thousand Kisses,Hebrew,Pop,Yehoram Gaon,80,Long,Love,+
+One Thousand Kisses,Hebrew,Pop,Tzvika Pick,80,Long,Love,-
+I Loved Her,Hebrew,Rock,Shlomo Artzi,70,Short,Love,-
+Praise Jerusalem,Hebrew,Eastern,Avihu Medina,70,Long,Geograpic Place,+
+Praise Jerusalem,Hebrew,Eastern,Yehoram Gaon,70,Long,Geograpic Place,-
+My Garden's Flower,Hebrew,Eastern,Zohar Argov,80,Long,Love,+
+My Garden's Flower,Hebrew,Eastern,Eyal Golan,2000,Long,Love,-
+Mr Shoko,Hebrew,Pop,Arik Einstein,90,Short,Kids,-
+On Top of Viewers Mountain,Hebrew,Pop,Yehoram Gaon,60,Long,Geograpic Place,+
+On Top of Viewers Mountain,Hebrew,Pop,Dudu Fisher,2000,Long,Geograpic Place,-
+Here The Dog Is Buried,Hebrew,Rock,Kaveret,70,Short,Humor,-
+Lady With Baskets,Hebrew,Rock,Arik Einstein,80,Short,Humor,-
+Mister Judge,Hebrew,Pop,Arik Einstein,80,Long,Humor,-
+Here Here,Hebrew,Jazz,Mati Caspi,70,Long,Love,-
+Express Bliss,Hebrew,Rock,Shlomo Artzi,2000,Long,Life,+
