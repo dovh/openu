@@ -20,16 +20,16 @@ namespace ApplicationSpace
          ********************************************************/
         
         List<Chromosome> m_chromosomes;
-        int m_sumof_fitness;
         int m_max_fitness;
         int m_min_fitness;
         double m_avg_fitness;
 
-        int m_sumof_delta_to_max_fitness;
+        int m_steady_state_prev;
+        int m_steady_state_counter;
+        int m_steady_state_threshold; 
 
         // properties 
         int m_population;
-        int m_elitism;
         double m_Pc; // Crossover probability 
         double m_Pm; // Mutation probability 
 
@@ -54,6 +54,9 @@ namespace ApplicationSpace
             m_random = new Random(123);
             m_population = 100;
 
+            m_steady_state_counter = 0;
+            m_steady_state_threshold = 30;
+
             Chromosome.StaticInitialize();
             Initialize();
         }
@@ -63,10 +66,7 @@ namespace ApplicationSpace
             // update statistics 
             m_max_fitness = m_chromosomes.Max(chrom => chrom.Fitness);
             m_min_fitness = m_chromosomes.Min(chrom => chrom.Fitness);
-            m_sumof_fitness = m_chromosomes.Sum(chrom => chrom.Fitness);
-            m_avg_fitness = m_sumof_fitness / m_chromosomes.Count;
-
-            m_sumof_delta_to_max_fitness = m_chromosomes.Sum(chrom => m_max_fitness - chrom.Fitness);
+            m_avg_fitness = m_chromosomes.Sum(chrom => chrom.Fitness) / m_chromosomes.Count;
         }
 
         public void Initialize()
@@ -147,6 +147,18 @@ namespace ApplicationSpace
             // update current 
             update();
             m_dbg_histogram.Clear();
+
+            // steady state detection 
+            if (m_steady_state_prev == m_min_fitness)
+                m_steady_state_counter++;
+            else
+                m_steady_state_counter = 0;
+            m_steady_state_prev = m_min_fitness;
+
+            if (m_steady_state_counter == m_steady_state_threshold)
+            {
+                Debug.Assert(false);
+            }
 
             while(next_chromosomes.Count < m_population)
             {

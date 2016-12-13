@@ -20,6 +20,9 @@ namespace ApplicationSpace
         Series m_max_series;
         Series m_min_series;
 
+        bool m_dbg_flag = false;
+        private static Object thisLock = new Object();
+
         int m_refresh_rate, m_refresh_count; 
 
         public Form1()
@@ -103,14 +106,29 @@ namespace ApplicationSpace
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            m_ga.Create_Generation();
-
-            m_refresh_count++; 
-            if (m_refresh_count == m_refresh_rate)
+            Timer.Stop();
+            lock (thisLock)
             {
-                m_refresh_count = 0;
-                dump();
+                if (m_dbg_flag)
+                {
+                    Debug.Assert(false);
+                }
+                m_dbg_flag = true;
+
+                m_ga.Create_Generation();
+
+                m_refresh_count++;
+                if (m_refresh_count == m_refresh_rate)
+                {
+                    m_refresh_count = 0;
+                    dump();
+                }
+
+                m_dbg_flag = false;
             }
+            Timer.Start();
+
+
         }
         
     }
