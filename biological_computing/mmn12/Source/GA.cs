@@ -76,7 +76,7 @@ namespace ApplicationSpace
             {
                 Chromosome chromosome = new Chromosome(/*i*/);
                 chromosome.Randomize();
-                chromosome.UpdateFitness();
+                chromosome.ComputeFitness();
                 m_chromosomes.Add(chromosome);
             }
 
@@ -88,13 +88,18 @@ namespace ApplicationSpace
 
         Chromosome Select()
         {
+            int max_fitness = m_chromosomes.Max(chrom => chrom.Fitness);
+            int min_fitness = m_chromosomes.Min(chrom => chrom.Fitness);
+            Debug.Assert(max_fitness == m_max_fitness);
+            Debug.Assert(min_fitness == m_min_fitness);
+
             if (m_max_fitness == m_min_fitness)
             {
                 return m_chromosomes.First();
             }
 
             // sort descending order 
-            //m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return y.Fitness.CompareTo(x.Fitness); });
+            m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return y.Fitness.CompareTo(x.Fitness); });
 
             // While trying to minimaze fiteness, filter only the X% lower chromosones 
             //  X is the 'selection threshold' 
@@ -103,6 +108,7 @@ namespace ApplicationSpace
 
             List<Chromosome> filtered_chromosomes = m_chromosomes.ToList();
             filtered_chromosomes.RemoveAll(chrom => chrom.Fitness >= fitness_threshold);
+            Debug.Assert(filtered_chromosomes.Count > 0);
 
             double total = filtered_chromosomes.Sum(chrom => chrom.Fitness);
             double wheel = m_random.NextDouble() * total;
@@ -164,20 +170,20 @@ namespace ApplicationSpace
                 else
                 {
                     //if (0.5 < m_random.NextDouble())
-                    if (first.Fitness > second.Fitness)
-                        offspring = first;
+                    if (first.Fitness < second.Fitness)
+                        offspring = first.DeepCopy();
                     else
-                        offspring = second;
+                        offspring = second.DeepCopy();
                 }
 
                 // Mutation 
                 if (m_random.NextDouble() < m_Pm)
                 {
-                    //offspring.Mutate();
+                    offspring.Mutate();
                 }
 
                 //offspring.Index = next_chromosomes.Count + 1;
-                offspring.UpdateFitness();
+                offspring.ComputeFitness();
                 next_chromosomes.Add(offspring);
             }
 

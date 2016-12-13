@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Diagnostics;
 
 namespace ApplicationSpace
 {
@@ -33,7 +34,7 @@ namespace ApplicationSpace
             m_min_series = ChartControl.Series["Min"];
 
             m_ga = new GA();
-            m_refresh_rate = 20;
+            m_refresh_rate = 30;
             m_refresh_count = 0;
 
             clear();
@@ -111,9 +112,6 @@ namespace ApplicationSpace
                 dump();
             }
         }
-
-        
-
         
     }
 }

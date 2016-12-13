@@ -79,8 +79,8 @@ namespace ApplicationSpace
 
         public static int Capacity { get { return Chromosome.m_capacity; } }
         public int Fitness { get { return m_fitness; } }
+        //public int Size { get { return m_triples.Count; } }
         //public int Index { set { m_index = value; } get { return m_index; } }
-        public int Size { get { return m_triples.Count; } }
 
         /********************************************************************
          *          Methods 
@@ -89,6 +89,16 @@ namespace ApplicationSpace
         public Chromosome(/*int index*/)
         {
             //m_index = index;
+        }
+
+        public Chromosome DeepCopy()
+        {
+            Chromosome copy = (Chromosome)MemberwiseClone();
+            copy.m_triples = new List<triple_t>();
+            for (int i = 0; i < m_capacity; i++)
+                copy.m_triples.Add(m_triples[i].DeepClone());
+
+            return copy;
         }
 
         static public void StaticInitialize()
@@ -136,7 +146,7 @@ namespace ApplicationSpace
             //UpdateFitness();
         }
 
-        public void UpdateFitness()
+        public void ComputeFitness()
         {
             m_fitness = 0; 
 
@@ -207,9 +217,9 @@ namespace ApplicationSpace
             for (int i = position; i < m_capacity; i++)
                 m_triples.Add(second.m_triples[i].DeepClone());
 
-            //fix_errors(new Men());
-            //fix_errors(new Women());
-            //fix_errors(new Dog());
+            fix_errors(new Men());
+            fix_errors(new Women());
+            fix_errors(new Dog());
 
             //UpdateFitness();
         }
