@@ -55,7 +55,7 @@ namespace ApplicationSpace
             m_population = 100;
 
             m_steady_state_counter = 0;
-            m_steady_state_threshold = 30;
+            m_steady_state_threshold = 100;
 
             Chromosome.StaticInitialize();
             Initialize();
