@@ -108,14 +108,11 @@ namespace ApplicationSpace
                 return m_chromosomes.First();
             }
 
-            // While trying to minimaze fiteness, filter only the X% lower chromosones 
-            //  X is the 'selection threshold' 
-            double threshold = m_selection_range / 100.0;
-            double fitness_threshold = (m_max_fitness - m_min_fitness) * threshold + m_min_fitness;
+            int range_to_remove = ((100 - m_selection_range) * m_population) / 100;
 
             List<Chromosome> filtered_chromosomes = m_chromosomes.ToList();
-            filtered_chromosomes.RemoveAll(chrom => chrom.Fitness >= fitness_threshold);
-            Debug.Assert(filtered_chromosomes.Count > 0);
+            filtered_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return y.Fitness.CompareTo(x.Fitness); });
+            filtered_chromosomes.RemoveRange(0, range_to_remove);
 
             double total = filtered_chromosomes.Sum(chrom => chrom.Fitness);
             double wheel = m_random.NextDouble() * total;
