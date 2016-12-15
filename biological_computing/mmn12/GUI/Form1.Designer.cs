@@ -51,6 +51,10 @@
             this.MinimumFitnessTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.RunningTimeTextBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.InstantMinimumTextBox = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.GenerationsTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ChartControl)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,7 +88,7 @@
             // 
             // ExitButton
             // 
-            this.ExitButton.Location = new System.Drawing.Point(760, 389);
+            this.ExitButton.Location = new System.Drawing.Point(760, 388);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(75, 23);
             this.ExitButton.TabIndex = 1;
@@ -94,7 +98,7 @@
             // 
             // RunButton
             // 
-            this.RunButton.Location = new System.Drawing.Point(760, 317);
+            this.RunButton.Location = new System.Drawing.Point(760, 330);
             this.RunButton.Name = "RunButton";
             this.RunButton.Size = new System.Drawing.Size(75, 23);
             this.RunButton.TabIndex = 2;
@@ -112,7 +116,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(643, 19);
+            this.label1.Location = new System.Drawing.Point(643, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(114, 13);
             this.label1.TabIndex = 4;
@@ -129,14 +133,14 @@
             // 
             // MutationProbabilityTextBox
             // 
-            this.MutationProbabilityTextBox.Location = new System.Drawing.Point(763, 52);
+            this.MutationProbabilityTextBox.Location = new System.Drawing.Point(763, 48);
             this.MutationProbabilityTextBox.Name = "MutationProbabilityTextBox";
             this.MutationProbabilityTextBox.Size = new System.Drawing.Size(72, 20);
             this.MutationProbabilityTextBox.TabIndex = 5;
             // 
             // PauseButton
             // 
-            this.PauseButton.Location = new System.Drawing.Point(760, 353);
+            this.PauseButton.Location = new System.Drawing.Point(760, 359);
             this.PauseButton.Name = "PauseButton";
             this.PauseButton.Size = new System.Drawing.Size(75, 23);
             this.PauseButton.TabIndex = 7;
@@ -146,7 +150,7 @@
             // 
             // InitializeButton
             // 
-            this.InitializeButton.Location = new System.Drawing.Point(760, 245);
+            this.InitializeButton.Location = new System.Drawing.Point(760, 272);
             this.InitializeButton.Name = "InitializeButton";
             this.InitializeButton.Size = new System.Drawing.Size(75, 23);
             this.InitializeButton.TabIndex = 8;
@@ -156,7 +160,7 @@
             // 
             // StepButton
             // 
-            this.StepButton.Location = new System.Drawing.Point(760, 281);
+            this.StepButton.Location = new System.Drawing.Point(760, 301);
             this.StepButton.Name = "StepButton";
             this.StepButton.Size = new System.Drawing.Size(75, 23);
             this.StepButton.TabIndex = 9;
@@ -167,7 +171,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(656, 91);
+            this.label3.Location = new System.Drawing.Point(656, 87);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(101, 13);
             this.label3.TabIndex = 11;
@@ -175,7 +179,7 @@
             // 
             // SelectionRangeTextBox
             // 
-            this.SelectionRangeTextBox.Location = new System.Drawing.Point(763, 88);
+            this.SelectionRangeTextBox.Location = new System.Drawing.Point(763, 80);
             this.SelectionRangeTextBox.Name = "SelectionRangeTextBox";
             this.SelectionRangeTextBox.Size = new System.Drawing.Size(72, 20);
             this.SelectionRangeTextBox.TabIndex = 10;
@@ -183,7 +187,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(599, 127);
+            this.label4.Location = new System.Drawing.Point(599, 119);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(158, 13);
             this.label4.TabIndex = 13;
@@ -191,7 +195,7 @@
             // 
             // LocalMinimumDetectionTextBox
             // 
-            this.LocalMinimumDetectionTextBox.Location = new System.Drawing.Point(763, 124);
+            this.LocalMinimumDetectionTextBox.Location = new System.Drawing.Point(763, 112);
             this.LocalMinimumDetectionTextBox.Name = "LocalMinimumDetectionTextBox";
             this.LocalMinimumDetectionTextBox.Size = new System.Drawing.Size(72, 20);
             this.LocalMinimumDetectionTextBox.TabIndex = 12;
@@ -199,7 +203,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(673, 162);
+            this.label5.Location = new System.Drawing.Point(673, 183);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(84, 13);
             this.label5.TabIndex = 15;
@@ -208,7 +212,7 @@
             // MinimumFitnessTextBox
             // 
             this.MinimumFitnessTextBox.Enabled = false;
-            this.MinimumFitnessTextBox.Location = new System.Drawing.Point(763, 159);
+            this.MinimumFitnessTextBox.Location = new System.Drawing.Point(763, 176);
             this.MinimumFitnessTextBox.Name = "MinimumFitnessTextBox";
             this.MinimumFitnessTextBox.Size = new System.Drawing.Size(72, 20);
             this.MinimumFitnessTextBox.TabIndex = 14;
@@ -216,7 +220,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(673, 197);
+            this.label6.Location = new System.Drawing.Point(685, 215);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(72, 13);
             this.label6.TabIndex = 17;
@@ -225,16 +229,54 @@
             // RunningTimeTextBox
             // 
             this.RunningTimeTextBox.Enabled = false;
-            this.RunningTimeTextBox.Location = new System.Drawing.Point(763, 194);
+            this.RunningTimeTextBox.Location = new System.Drawing.Point(763, 208);
             this.RunningTimeTextBox.Name = "RunningTimeTextBox";
             this.RunningTimeTextBox.Size = new System.Drawing.Size(72, 20);
             this.RunningTimeTextBox.TabIndex = 16;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(639, 151);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(118, 13);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "Instant minimum fitness:";
+            // 
+            // InstantMinimumTextBox
+            // 
+            this.InstantMinimumTextBox.Enabled = false;
+            this.InstantMinimumTextBox.Location = new System.Drawing.Point(763, 144);
+            this.InstantMinimumTextBox.Name = "InstantMinimumTextBox";
+            this.InstantMinimumTextBox.Size = new System.Drawing.Size(72, 20);
+            this.InstantMinimumTextBox.TabIndex = 18;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(685, 245);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(67, 13);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "Generations:";
+            // 
+            // GenerationsTextBox
+            // 
+            this.GenerationsTextBox.Enabled = false;
+            this.GenerationsTextBox.Location = new System.Drawing.Point(763, 238);
+            this.GenerationsTextBox.Name = "GenerationsTextBox";
+            this.GenerationsTextBox.Size = new System.Drawing.Size(72, 20);
+            this.GenerationsTextBox.TabIndex = 20;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(855, 430);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.GenerationsTextBox);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.InstantMinimumTextBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.RunningTimeTextBox);
             this.Controls.Add(this.label5);
@@ -282,6 +324,10 @@
         private System.Windows.Forms.TextBox MinimumFitnessTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox RunningTimeTextBox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox InstantMinimumTextBox;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox GenerationsTextBox;
     }
 }
 

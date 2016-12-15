@@ -25,16 +25,18 @@ namespace ApplicationSpace
         int m_min_fitness;
         double m_avg_fitness;
 
+        int m_generations; 
         int m_min_fitness_prev;
+        int m_min_fitness_ever;
         int m_local_minimum_detection;
         int m_local_minimum_escape_period;
 
         // properties 
-        int m_population;
-        double m_Pc; // Crossover probability 
-        double m_Pm; // Mutation probability 
-        int m_selection_range;
-        int m_local_minimum_detection_period;
+        int     m_population;
+        double  m_Pc; // Crossover probability 
+        double  m_Pm; // Mutation probability 
+        int     m_selection_range;
+        int     m_local_minimum_detection_period;
 
         /********************************************************
          *              Accessors 
@@ -48,6 +50,8 @@ namespace ApplicationSpace
         public double Max_fitness { get { return m_max_fitness; } }
         public double Min_fitness { get { return m_min_fitness; } }
         public double Avg_fitness { get { return m_avg_fitness; } }
+        public int Min_fitness_Ever { get { return m_min_fitness_ever; } set { m_min_fitness_ever = value; } }
+        public int Generations { get { return m_generations; } set { m_generations = value; } }
 
         /********************************************************
          *              Methods 
@@ -57,11 +61,16 @@ namespace ApplicationSpace
             m_random = new Random();
             m_population = 100;
 
-            m_local_minimum_detection = 0;
-            //m_steady_state_threshold = 100;
-
             Chromosome.StaticInitialize();
-            Initialize();
+            Initialize(); 
+            Randomize();
+        }
+
+        public void Initialize()
+        {
+            m_local_minimum_detection = 0;
+            m_min_fitness_ever = int.MaxValue;
+            m_generations = 0; 
         }
 
         void update()
@@ -70,9 +79,10 @@ namespace ApplicationSpace
             m_max_fitness = m_chromosomes.Max(chrom => chrom.Fitness);
             m_min_fitness = m_chromosomes.Min(chrom => chrom.Fitness);
             m_avg_fitness = m_chromosomes.Sum(chrom => chrom.Fitness) / m_chromosomes.Count;
+            m_min_fitness_ever = Math.Min(m_min_fitness_ever, m_min_fitness);
         }
 
-        public void Initialize()
+        public void Randomize()
         {
             m_chromosomes = new List<Chromosome>();
             for (int i = 0; i < m_population; i++)
@@ -177,6 +187,7 @@ namespace ApplicationSpace
             m_chromosomes = next_chromosomes;
 
             update();
+            m_generations++; 
         }
 
         public void Local_Minimum_Escape()
@@ -208,7 +219,7 @@ namespace ApplicationSpace
                     m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return x.Fitness.CompareTo(y.Fitness); });
                     m_elites = new List<Chromosome>(m_chromosomes.Take(5));
                     m_local_minimum_escape_period = m_local_minimum_detection_period;
-                    Initialize();
+                    Randomize();
                 }
             }
 

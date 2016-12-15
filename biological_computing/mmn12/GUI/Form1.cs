@@ -73,7 +73,9 @@ namespace ApplicationSpace
                 m_avg_series.Points.RemoveAt(0);
             }
 
-            MinimumFitnessTextBox.Text = m_ga.Min_fitness.ToString();
+            InstantMinimumTextBox.Text = m_ga.Min_fitness.ToString();
+            MinimumFitnessTextBox.Text = m_ga.Min_fitness_Ever.ToString();
+            GenerationsTextBox.Text = m_ga.Generations.ToString();
 
             if (m_running)
             {
@@ -104,7 +106,7 @@ namespace ApplicationSpace
         {
             read_controls();
             m_ga.Initialize();
-
+            m_ga.Randomize();
             clear();
             dump();
         }
@@ -118,19 +120,10 @@ namespace ApplicationSpace
 
         private void runThread()
         {
-            //int dbg_counter = 0; 
-
             while (m_running)
             {
                 m_ga.Create_Generation();
-
-                //dbg_counter++;
-                //Debug.Assert(dbg_counter != 3369);
-                //double Min_fitness = m_ga.Min_fitness;
-
                 m_ga.Local_Minimum_Escape();
-
-                //Debug.Assert(m_ga.Min_fitness <= Min_fitness);
 
                 m_refresh_count++;
                 if (m_refresh_count == m_refresh_rate)
