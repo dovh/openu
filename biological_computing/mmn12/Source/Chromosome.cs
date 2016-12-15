@@ -117,6 +117,8 @@ namespace ApplicationSpace
 
         public void Randomize()
         {
+            m_triples.Clear();
+
             HashSet<int> menSet = new HashSet<int>();
             HashSet<int> womenSet = new HashSet<int>();
             HashSet<int> dogsSet = new HashSet<int>();

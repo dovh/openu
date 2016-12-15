@@ -18,22 +18,23 @@ namespace ApplicationSpace
         /********************************************************
          *              Members 
          ********************************************************/
-        
+
         List<Chromosome> m_chromosomes;
+        List<Chromosome> m_elites;
         int m_max_fitness;
         int m_min_fitness;
         double m_avg_fitness;
 
-        int m_steady_state_prev;
-        int m_steady_state_counter;
-        int m_steady_state_threshold; 
+        int m_min_fitness_prev;
+        int m_local_minimum_detection;
+        int m_local_minimum_escape_period;
 
         // properties 
         int m_population;
         double m_Pc; // Crossover probability 
         double m_Pm; // Mutation probability 
-
-        SortedDictionary<int, int> m_dbg_histogram = new SortedDictionary<int, int>();
+        int m_selection_range;
+        int m_local_minimum_detection_period;
 
         /********************************************************
          *              Accessors 
@@ -41,6 +42,8 @@ namespace ApplicationSpace
         public static double NextRandom { get { return m_random.NextDouble(); } }
         public double Pc { get { return m_Pc; } set { m_Pc = value; } }
         public double Pm { get { return m_Pm; } set { m_Pm = value; } }
+        public int SelectionRange { get { return m_selection_range; } set { m_selection_range = value; } }
+        public int LocalMinimumDetectionPeriod { get { return m_local_minimum_detection_period; } set { m_local_minimum_detection_period = value; } }
 
         public double Max_fitness { get { return m_max_fitness; } }
         public double Min_fitness { get { return m_min_fitness; } }
@@ -51,11 +54,11 @@ namespace ApplicationSpace
          ********************************************************/
         public GA()
         {
-            m_random = new Random(123);
+            m_random = new Random();
             m_population = 100;
 
-            m_steady_state_counter = 0;
-            m_steady_state_threshold = 100;
+            m_local_minimum_detection = 0;
+            //m_steady_state_threshold = 100;
 
             Chromosome.StaticInitialize();
             Initialize();
@@ -95,13 +98,10 @@ namespace ApplicationSpace
                 return m_chromosomes.First();
             }
 
-            // sort descending order 
-            //m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return y.Fitness.CompareTo(x.Fitness); });
-
             // While trying to minimaze fiteness, filter only the X% lower chromosones 
             //  X is the 'selection threshold' 
-            double selection_threshold = 40.0 / 100.0;
-            double fitness_threshold = (m_max_fitness - m_min_fitness)* selection_threshold + m_min_fitness;
+            double threshold = m_selection_range / 100.0;
+            double fitness_threshold = (m_max_fitness - m_min_fitness) * threshold + m_min_fitness;
 
             List<Chromosome> filtered_chromosomes = m_chromosomes.ToList();
             filtered_chromosomes.RemoveAll(chrom => chrom.Fitness >= fitness_threshold);
@@ -130,13 +130,6 @@ namespace ApplicationSpace
                 retval = filtered_chromosomes.Last();
             }
 
-            //key = retval.Fitness - m_min_fitness;
-            //int key = retval.Fitness;
-            //if (!m_dbg_histogram.ContainsKey(key))
-            //    m_dbg_histogram.Add(key, 1);
-            //else
-            //    m_dbg_histogram[key]++;
-
             return retval;
         }
 
@@ -146,19 +139,6 @@ namespace ApplicationSpace
 
             // update current 
             update();
-            m_dbg_histogram.Clear();
-
-            // steady state detection 
-            if (m_steady_state_prev == m_min_fitness)
-                m_steady_state_counter++;
-            else
-                m_steady_state_counter = 0;
-            m_steady_state_prev = m_min_fitness;
-
-            if (m_steady_state_counter == m_steady_state_threshold)
-            {
-                Debug.Assert(false);
-            }
 
             while(next_chromosomes.Count < m_population)
             {
@@ -197,6 +177,41 @@ namespace ApplicationSpace
             m_chromosomes = next_chromosomes;
 
             update();
+        }
+
+        public void Local_Minimum_Escape()
+        {
+            if (m_local_minimum_escape_period != 0)
+            {
+                m_local_minimum_escape_period--; 
+                if (m_local_minimum_escape_period == 0)
+                {
+                    m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return y.Fitness.CompareTo(x.Fitness); });
+                    m_chromosomes.RemoveRange(0, 5);
+                    m_chromosomes.AddRange(m_elites);
+                    m_elites.Clear();
+                }
+
+            }
+            else
+            {
+                // local minimum detection 
+                if (m_min_fitness_prev == m_min_fitness)
+                    m_local_minimum_detection++;
+                else
+                    m_local_minimum_detection = 0;
+                m_min_fitness_prev = m_min_fitness;
+
+                if (m_local_minimum_detection == m_local_minimum_detection_period)
+                {
+                    m_local_minimum_detection = 0;
+                    m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return x.Fitness.CompareTo(y.Fitness); });
+                    m_elites = new List<Chromosome>(m_chromosomes.Take(5));
+                    m_local_minimum_escape_period = m_local_minimum_detection_period;
+                    Initialize();
+                }
+            }
+
         }
 
         void Sanity()

@@ -16,7 +16,8 @@ namespace ApplicationSpace
     public partial class Form1 : Form
     {
         GA     m_ga;
-        bool   m_running; 
+        bool   m_running;
+        DateTime m_running_start_time; 
 
         Series m_avg_series;
         Series m_max_series;
@@ -31,6 +32,8 @@ namespace ApplicationSpace
 
             CrossoverProbabiltyTextBox.Text = "0.7";
             MutationProbabilityTextBox.Text = "0.02";
+            SelectionRangeTextBox.Text = "40";
+            LocalMinimumDetectionTextBox.Text = "100";
 
             m_avg_series = ChartControl.Series["Average"];
             m_max_series = ChartControl.Series["Max"];
@@ -62,15 +65,39 @@ namespace ApplicationSpace
             m_max_series.Points.AddY(m_ga.Max_fitness);
             m_min_series.Points.AddY(m_ga.Min_fitness);
             m_avg_series.Points.AddY(m_ga.Avg_fitness);
+
+            if (m_max_series.Points.Count > 80)
+            {
+                m_max_series.Points.RemoveAt(0);
+                m_min_series.Points.RemoveAt(0);
+                m_avg_series.Points.RemoveAt(0);
+            }
+
+            MinimumFitnessTextBox.Text = m_ga.Min_fitness.ToString();
+
+            if (m_running)
+            {
+                TimeSpan time_diff = DateTime.Now - m_running_start_time;
+                RunningTimeTextBox.Text = time_diff.ToString("mm\\:ss");
+            }
+            else
+            {
+                RunningTimeTextBox.Text = "";
+            }
         }
 
         void read_controls()
         {
             double pc, pm;
+            int selection_range, local_minimum_detection_period;
             double.TryParse(CrossoverProbabiltyTextBox.Text, out pc);
             double.TryParse(MutationProbabilityTextBox.Text, out pm);
+            int.TryParse(SelectionRangeTextBox.Text, out selection_range);
+            int.TryParse(LocalMinimumDetectionTextBox.Text, out local_minimum_detection_period);
             m_ga.Pc = pc;
             m_ga.Pm = pm;
+            m_ga.SelectionRange = selection_range;
+            m_ga.LocalMinimumDetectionPeriod = local_minimum_detection_period;
         }
 
         private void InitializeButton_Click(object sender, EventArgs e)
@@ -91,9 +118,19 @@ namespace ApplicationSpace
 
         private void runThread()
         {
+            //int dbg_counter = 0; 
+
             while (m_running)
             {
                 m_ga.Create_Generation();
+
+                //dbg_counter++;
+                //Debug.Assert(dbg_counter != 3369);
+                //double Min_fitness = m_ga.Min_fitness;
+
+                m_ga.Local_Minimum_Escape();
+
+                //Debug.Assert(m_ga.Min_fitness <= Min_fitness);
 
                 m_refresh_count++;
                 if (m_refresh_count == m_refresh_rate)
@@ -103,6 +140,11 @@ namespace ApplicationSpace
                     Debug.Assert(ChartControl.InvokeRequired);
                     dumpCallback d = new dumpCallback(dump);
                     Invoke(d, new object[] {});
+
+                    // stop after 3 minutes 
+                    TimeSpan time_diff = DateTime.Now - m_running_start_time;
+                    if (time_diff.Minutes == 3)
+                        m_running = false;
                 }
             }
         }
@@ -114,6 +156,8 @@ namespace ApplicationSpace
             m_running = true;
             Thread thread = new Thread(runThread);
             thread.Start();
+
+            m_running_start_time = DateTime.Now;
         }
 
         private void PauseButton_Click(object sender, EventArgs e)
@@ -123,6 +167,7 @@ namespace ApplicationSpace
 
         private void ExitButton_Click(object sender, EventArgs e)
         {
+            m_running = false;
             Application.Exit();
         }
 
