@@ -34,6 +34,7 @@ namespace ApplicationSpace
             MutationProbabilityTextBox.Text = "0.02";
             SelectionRangeTextBox.Text = "40";
             LocalMinimumDetectionTextBox.Text = "100";
+            ElitesTextBox.Text = "5";
 
             m_avg_series = ChartControl.Series["Average"];
             m_max_series = ChartControl.Series["Max"];
@@ -92,30 +93,39 @@ namespace ApplicationSpace
         {
             double pc, pm;
             int selection_range, local_minimum_detection_period;
+            int elites;
             double.TryParse(CrossoverProbabiltyTextBox.Text, out pc);
             double.TryParse(MutationProbabilityTextBox.Text, out pm);
             int.TryParse(SelectionRangeTextBox.Text, out selection_range);
             int.TryParse(LocalMinimumDetectionTextBox.Text, out local_minimum_detection_period);
+            int.TryParse(ElitesTextBox.Text, out elites);
             m_ga.Pc = pc;
             m_ga.Pm = pm;
             m_ga.SelectionRange = selection_range;
             m_ga.LocalMinimumDetectionPeriod = local_minimum_detection_period;
+            m_ga.Elites = elites;
         }
 
         private void InitializeButton_Click(object sender, EventArgs e)
         {
-            read_controls();
-            m_ga.Initialize();
-            m_ga.Randomize();
-            clear();
-            dump();
+            if (!m_running)
+            {
+                read_controls();
+                m_ga.Initialize();
+                m_ga.Randomize();
+                clear();
+                dump();
+            }
         }
 
         private void StepButton_Click(object sender, EventArgs e)
         {
-            read_controls();
-            m_ga.Create_Generation();
-            dump();
+            if (!m_running)
+            {
+                read_controls();
+                m_ga.Create_Generation();
+                dump();
+            }
         }
 
         private void runThread()
@@ -144,13 +154,16 @@ namespace ApplicationSpace
 
         private void RunButton_Click(object sender, EventArgs e)
         {
-            read_controls();
+            if (!m_running)
+            {
+                read_controls();
 
-            m_running = true;
-            Thread thread = new Thread(runThread);
-            thread.Start();
+                m_running = true;
+                Thread thread = new Thread(runThread);
+                thread.Start();
 
-            m_running_start_time = DateTime.Now;
+                m_running_start_time = DateTime.Now;
+            }
         }
 
         private void PauseButton_Click(object sender, EventArgs e)

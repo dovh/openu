@@ -20,7 +20,7 @@ namespace ApplicationSpace
          ********************************************************/
 
         List<Chromosome> m_chromosomes;
-        List<Chromosome> m_elites;
+        List<Chromosome> m_escape_period;
         int m_max_fitness;
         int m_min_fitness;
         double m_avg_fitness;
@@ -36,7 +36,9 @@ namespace ApplicationSpace
         double  m_Pc; // Crossover probability 
         double  m_Pm; // Mutation probability 
         int     m_selection_range;
-        int     m_local_minimum_detection_period;
+        int m_local_minimum_detection_period;
+        int m_elites;
+
 
         /********************************************************
          *              Accessors 
@@ -46,6 +48,7 @@ namespace ApplicationSpace
         public double Pm { get { return m_Pm; } set { m_Pm = value; } }
         public int SelectionRange { get { return m_selection_range; } set { m_selection_range = value; } }
         public int LocalMinimumDetectionPeriod { get { return m_local_minimum_detection_period; } set { m_local_minimum_detection_period = value; } }
+        public int Elites { get { return m_elites; } set { m_elites = value; } }
 
         public double Max_fitness { get { return m_max_fitness; } }
         public double Min_fitness { get { return m_min_fitness; } }
@@ -111,7 +114,6 @@ namespace ApplicationSpace
             int range_to_remove = ((100 - m_selection_range) * m_population) / 100;
 
             List<Chromosome> filtered_chromosomes = m_chromosomes.ToList();
-            filtered_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return y.Fitness.CompareTo(x.Fitness); });
             filtered_chromosomes.RemoveRange(0, range_to_remove);
 
             double total = filtered_chromosomes.Sum(chrom => chrom.Fitness);
@@ -146,6 +148,10 @@ namespace ApplicationSpace
 
             // update current 
             update();
+
+            // take elites 
+            m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return y.Fitness.CompareTo(x.Fitness); });
+            next_chromosomes.AddRange(m_chromosomes.Skip(m_population - m_elites));
 
             while(next_chromosomes.Count < m_population)
             {
@@ -196,8 +202,8 @@ namespace ApplicationSpace
                 {
                     m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return y.Fitness.CompareTo(x.Fitness); });
                     m_chromosomes.RemoveRange(0, 5);
-                    m_chromosomes.AddRange(m_elites);
-                    m_elites.Clear();
+                    m_chromosomes.AddRange(m_escape_period);
+                    m_escape_period.Clear();
                 }
 
             }
@@ -214,7 +220,7 @@ namespace ApplicationSpace
                 {
                     m_local_minimum_detection = 0;
                     m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return x.Fitness.CompareTo(y.Fitness); });
-                    m_elites = new List<Chromosome>(m_chromosomes.Take(5));
+                    m_escape_period = new List<Chromosome>(m_chromosomes.Take(5));
                     m_local_minimum_escape_period = m_local_minimum_detection_period;
                     Randomize();
                 }
