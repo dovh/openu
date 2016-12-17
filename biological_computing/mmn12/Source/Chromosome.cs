@@ -23,7 +23,7 @@ namespace ApplicationSpace
             public int Dog { get { return m_dog; } set { m_dog = value; } }
             public int Fitness { get { return m_fitness; } set { m_fitness = value; } }
 
-            public int Get(Item o) 
+            public int Get(Person o) 
             {
                 if (o.GetType() == typeof(Men))
                     return m_men;
@@ -36,7 +36,7 @@ namespace ApplicationSpace
                 return -1; 
             }
 
-            public void Set(Item o, int val) 
+            public void Set(Person o, int val) 
             {
                 if (o.GetType() == typeof(Men))
                     m_men = val;
@@ -70,25 +70,21 @@ namespace ApplicationSpace
 
         List<triple_t> m_triples = new List<triple_t>();
         int m_fitness = -1;
-        //int m_index = -1;
 
 
         /********************************************************************
          *          Acceessesors 
          ********************************************************************/
 
-        public static int Capacity { get { return Chromosome.m_capacity; } }
+        public static int Capacity { get { return m_capacity; } }
         public int Fitness { get { return m_fitness; } }
-        //public int Size { get { return m_triples.Count; } }
-        //public int Index { set { m_index = value; } get { return m_index; } }
 
         /********************************************************************
          *          Methods 
          ********************************************************************/ 
 
-        public Chromosome(/*int index*/)
+        public Chromosome()
         {
-            //m_index = index;
         }
 
         public Chromosome DeepCopy()
@@ -144,14 +140,13 @@ namespace ApplicationSpace
                 triple.Dog = idog;
                 m_triples.Add(triple);
             }
-
-            //UpdateFitness();
         }
 
         public void ComputeFitness()
         {
             m_fitness = 0; 
 
+            // iterate over all triplets, and sum all preferences differences from optimum 
             foreach (triple_t triple in m_triples)
             {
                 Men men = (Men)m_men_arr[triple.Men];
@@ -170,13 +165,16 @@ namespace ApplicationSpace
                 triple.Fitness = fitness;
                 m_fitness += fitness;
             }
-
-            //Debug.Assert(m_fitness < 10000);
-            //m_fitness = 10000 - m_fitness;
         }
 
-        void fix_errors(Item type)
+        void FixErrors(Person type)
         {
+            /*
+             * Fix errors by: 
+             *  1. detect if a person appear in two triplets 
+             *  2. in the second triplet, change its index to a one not used 
+             */
+
             SortedSet<int> indexes = new SortedSet<int>();
             Dictionary<int, int> errors = new Dictionary<int, int>();
             for (int i = 0; i < m_capacity; i++)
@@ -193,7 +191,7 @@ namespace ApplicationSpace
 
             foreach (KeyValuePair<int, int> pair in errors)
             {
-                // find first unused item 
+                // find first unused index 
                 int unused = 0;
                 while (indexes.Contains(unused))
                     unused++;
@@ -214,24 +212,30 @@ namespace ApplicationSpace
 
             int position = (int)(GA.NextRandom * m_capacity);
 
+            // do single cut, cross over 
             for (int i = 0; i < position; i++)
                 m_triples.Add(first.m_triples[i].DeepClone());
             for (int i = position; i < m_capacity; i++)
                 m_triples.Add(second.m_triples[i].DeepClone());
 
-            fix_errors(new Men());
-            fix_errors(new Women());
-            fix_errors(new Dog());
-
-            //UpdateFitness();
+            // fix errors 
+            FixErrors(new Men());
+            FixErrors(new Women());
+            FixErrors(new Dog());
         }
 
         public void Mutate()
         {
+            /*
+             * Mutate by, 
+             *  1. Randomalty select men, women or dog (i.e. person) 
+             *  2. Randomalty select two triplets 
+             *  3. swap the person in two triplets 
+             */
             int index1 = (int)(GA.NextRandom * m_capacity);
             int index2 = (int)(GA.NextRandom * m_capacity);
 
-            Item type = null;
+            Person type = null;
             switch ((int)(GA.NextRandom * 3))
             {
                 case 0: type = new Men(); break;
@@ -244,11 +248,9 @@ namespace ApplicationSpace
             int second = m_triples[index2].Get(type);
             m_triples[index1].Set(type, second);
             m_triples[index2].Set(type, first);
-
-            //UpdateFitness();
         }
 
-        public void Sanity()
+        public void Sanity() // Debug 
         {
             SortedSet<int> indexes1 = new SortedSet<int>();
             SortedSet<int> indexes2 = new SortedSet<int>();
@@ -267,7 +269,6 @@ namespace ApplicationSpace
             Debug.Assert(indexes1.Max() == m_capacity - 1);
             Debug.Assert(indexes2.Max() == m_capacity - 1);
             Debug.Assert(indexes3.Max() == m_capacity - 1);
-
         }
 
     }

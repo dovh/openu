@@ -25,19 +25,20 @@ namespace ApplicationSpace
         int m_min_fitness;
         double m_avg_fitness;
 
-        int m_generations; 
-        int m_min_fitness_prev;
-        int m_min_fitness_ever;
-        int m_local_minimum_detection;
-        int m_local_minimum_escape_period;
+        int     m_generations; 
+        int     m_min_fitness_prev;
+        int     m_min_fitness_ever;
+        int     m_local_minimum_detection;
+        int     m_local_minimum_escape_period;
+        double  m_Pm_save;        
 
         // properties 
         int     m_population;
-        double  m_Pc; // Crossover probability 
-        double  m_Pm; // Mutation probability 
+        double  m_Pc;        // Crossover probability 
+        double  m_Pm;        // Mutation probability 
         int     m_selection_range;
-        int m_local_minimum_detection_period;
-        int m_elites;
+        int     m_local_minimum_detection_period;
+        int     m_elites;
 
 
         /********************************************************
@@ -49,19 +50,35 @@ namespace ApplicationSpace
         public int SelectionRange { get { return m_selection_range; } set { m_selection_range = value; } }
         public int LocalMinimumDetectionPeriod { get { return m_local_minimum_detection_period; } set { m_local_minimum_detection_period = value; } }
         public int Elites { get { return m_elites; } set { m_elites = value; } }
-
         public double Max_fitness { get { return m_max_fitness; } }
         public double Min_fitness { get { return m_min_fitness; } }
         public double Avg_fitness { get { return m_avg_fitness; } }
         public int Min_fitness_Ever { get { return m_min_fitness_ever; } set { m_min_fitness_ever = value; } }
         public int Generations { get { return m_generations; } set { m_generations = value; } }
 
+        public int Population
+        {
+            get { return m_population; }
+            set
+            {
+                if (value != m_population)
+                {
+                    m_population = value;
+                    Initialize();
+                    Randomize();
+                }
+            }
+        }
+
         /********************************************************
          *              Methods 
          ********************************************************/
+
+        // Constructor 
         public GA()
         {
             m_random = new Random();
+            m_escape_period = new List<Chromosome>();
             m_population = 100;
 
             Chromosome.StaticInitialize();
@@ -90,7 +107,7 @@ namespace ApplicationSpace
             m_chromosomes = new List<Chromosome>();
             for (int i = 0; i < m_population; i++)
             {
-                Chromosome chromosome = new Chromosome(/*i*/);
+                Chromosome chromosome = new Chromosome();
                 chromosome.Randomize();
                 chromosome.ComputeFitness();
                 m_chromosomes.Add(chromosome);
@@ -101,21 +118,20 @@ namespace ApplicationSpace
 
         Chromosome Select()
         {
-            int max_fitness = m_chromosomes.Max(chrom => chrom.Fitness);
-            int min_fitness = m_chromosomes.Min(chrom => chrom.Fitness);
-            Debug.Assert(max_fitness == m_max_fitness);
-            Debug.Assert(min_fitness == m_min_fitness);
-
             if (m_max_fitness == m_min_fitness)
             {
+                // if all population is the same, select first  
                 return m_chromosomes.First();
             }
 
-            int range_to_remove = ((100 - m_selection_range) * m_population) / 100;
-
+            // Select best 'selection_range' invididuals to choose from 
             List<Chromosome> filtered_chromosomes = m_chromosomes.ToList();
+            int range_to_remove = ((100 - m_selection_range) * m_population) / 100;
             filtered_chromosomes.RemoveRange(0, range_to_remove);
 
+            /* 
+             * Implemet wheel roulette 
+             */
             double total = filtered_chromosomes.Sum(chrom => chrom.Fitness);
             double wheel = m_random.NextDouble() * total;
             double accumulate = 0;
@@ -144,9 +160,10 @@ namespace ApplicationSpace
 
         public void Create_Generation()
         {
+            // allocater space for new generation 
             List<Chromosome> next_chromosomes = new List<Chromosome>();
 
-            // update current 
+            // update min,max and avg statistics 
             update();
 
             // take elites 
@@ -181,7 +198,6 @@ namespace ApplicationSpace
                     offspring.Mutate();
                 }
 
-                //offspring.Index = next_chromosomes.Count + 1;
                 offspring.ComputeFitness();
                 next_chromosomes.Add(offspring);
             }
@@ -197,15 +213,19 @@ namespace ApplicationSpace
         {
             if (m_local_minimum_escape_period != 0)
             {
+                // if inside escape period 
                 m_local_minimum_escape_period--; 
                 if (m_local_minimum_escape_period == 0)
                 {
+                    // if escaoe period ends, return best 5 individuals to population
                     m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return y.Fitness.CompareTo(x.Fitness); });
                     m_chromosomes.RemoveRange(0, 5);
                     m_chromosomes.AddRange(m_escape_period);
                     m_escape_period.Clear();
-                }
 
+                    // restore mutation probabilty 
+                    m_Pm = m_Pm_save;
+                }
             }
             else
             {
@@ -219,16 +239,26 @@ namespace ApplicationSpace
                 if (m_local_minimum_detection == m_local_minimum_detection_period)
                 {
                     m_local_minimum_detection = 0;
+
+                    // if local minimum detected, save best 5 individuals and 
                     m_chromosomes.Sort(delegate(Chromosome x, Chromosome y) { return x.Fitness.CompareTo(y.Fitness); });
-                    m_escape_period = new List<Chromosome>(m_chromosomes.Take(5));
-                    m_local_minimum_escape_period = m_local_minimum_detection_period;
+                    m_escape_period.Clear();
+                    m_escape_period.AddRange(m_chromosomes.Take(5));
+
+                    // start escape period by: 
+                    //  1. set mutation probability to double 4 
+                    //  2. rerandomize all population 
+                    //  3. set escape perios length to detection threshold double 4 
+                    m_Pm_save = m_Pm;
+                    m_Pm = Math.Min(m_Pm * 4, 1);
+                    m_local_minimum_escape_period = m_local_minimum_detection_period * 4;
                     Randomize();
                 }
             }
 
         }
 
-        void Sanity()
+        void Sanity() // Debug 
         {
             foreach (Chromosome chromosome in m_chromosomes)
             {

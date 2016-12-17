@@ -30,19 +30,20 @@ namespace ApplicationSpace
         {
             InitializeComponent();
 
+            PopulationSizeTextBox.Text = "100";
             CrossoverProbabiltyTextBox.Text = "0.7";
             MutationProbabilityTextBox.Text = "0.02";
-            SelectionRangeTextBox.Text = "40";
+            SelectionRangeTextBox.Text = "80";
             LocalMinimumDetectionTextBox.Text = "100";
             ElitesTextBox.Text = "5";
+            m_refresh_rate = 30;
+            m_refresh_count = 0;
 
             m_avg_series = ChartControl.Series["Average"];
             m_max_series = ChartControl.Series["Max"];
             m_min_series = ChartControl.Series["Min"];
 
             m_ga = new GA();
-            m_refresh_rate = 30;
-            m_refresh_count = 0;
 
             clear();
             dump();
@@ -94,16 +95,24 @@ namespace ApplicationSpace
             double pc, pm;
             int selection_range, local_minimum_detection_period;
             int elites;
+            int population_size;
             double.TryParse(CrossoverProbabiltyTextBox.Text, out pc);
             double.TryParse(MutationProbabilityTextBox.Text, out pm);
             int.TryParse(SelectionRangeTextBox.Text, out selection_range);
             int.TryParse(LocalMinimumDetectionTextBox.Text, out local_minimum_detection_period);
             int.TryParse(ElitesTextBox.Text, out elites);
+            int.TryParse(PopulationSizeTextBox.Text, out population_size);
             m_ga.Pc = pc;
             m_ga.Pm = pm;
             m_ga.SelectionRange = selection_range;
             m_ga.LocalMinimumDetectionPeriod = local_minimum_detection_period;
             m_ga.Elites = elites;
+
+            if (m_ga.Population != population_size)
+            {
+                clear();
+                m_ga.Population = population_size;
+            }
         }
 
         private void InitializeButton_Click(object sender, EventArgs e)
@@ -132,9 +141,13 @@ namespace ApplicationSpace
         {
             while (m_running)
             {
+                // create a new generation 
                 m_ga.Create_Generation();
+
+                // detect and start a local minimum escape astrategy 
                 m_ga.Local_Minimum_Escape();
 
+                // refresh chart, each 'm_refresh_rate' iterations 
                 m_refresh_count++;
                 if (m_refresh_count == m_refresh_rate)
                 {
@@ -157,6 +170,7 @@ namespace ApplicationSpace
             if (!m_running)
             {
                 read_controls();
+                Update();
 
                 m_running = true;
                 Thread thread = new Thread(runThread);

@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.ChartControl = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.ExitButton = new System.Windows.Forms.Button();
             this.RunButton = new System.Windows.Forms.Button();
@@ -57,33 +57,35 @@
             this.GenerationsTextBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.ElitesTextBox = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.PopulationSizeTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ChartControl)).BeginInit();
             this.SuspendLayout();
             // 
             // ChartControl
             // 
-            chartArea1.Name = "ChartArea1";
-            this.ChartControl.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.ChartControl.Legends.Add(legend1);
+            chartArea4.Name = "ChartArea1";
+            this.ChartControl.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.ChartControl.Legends.Add(legend4);
             this.ChartControl.Location = new System.Drawing.Point(12, 12);
             this.ChartControl.Name = "ChartControl";
-            series1.BorderWidth = 2;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Color = System.Drawing.Color.Red;
-            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series1.Legend = "Legend1";
-            series1.Name = "Average";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Max";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Min";
-            this.ChartControl.Series.Add(series1);
-            this.ChartControl.Series.Add(series2);
-            this.ChartControl.Series.Add(series3);
+            series10.BorderWidth = 2;
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series10.Color = System.Drawing.Color.Red;
+            series10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series10.Legend = "Legend1";
+            series10.Name = "Average";
+            series11.ChartArea = "ChartArea1";
+            series11.Legend = "Legend1";
+            series11.Name = "Max";
+            series12.ChartArea = "ChartArea1";
+            series12.Legend = "Legend1";
+            series12.Name = "Min";
+            this.ChartControl.Series.Add(series10);
+            this.ChartControl.Series.Add(series11);
+            this.ChartControl.Series.Add(series12);
             this.ChartControl.Size = new System.Drawing.Size(571, 405);
             this.ChartControl.TabIndex = 0;
             this.ChartControl.Text = "chart1";
@@ -110,7 +112,7 @@
             // 
             // CrossoverProbabiltyTextBox
             // 
-            this.CrossoverProbabiltyTextBox.Location = new System.Drawing.Point(763, 16);
+            this.CrossoverProbabiltyTextBox.Location = new System.Drawing.Point(763, 46);
             this.CrossoverProbabiltyTextBox.Name = "CrossoverProbabiltyTextBox";
             this.CrossoverProbabiltyTextBox.Size = new System.Drawing.Size(72, 20);
             this.CrossoverProbabiltyTextBox.TabIndex = 3;
@@ -118,7 +120,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(643, 23);
+            this.label1.Location = new System.Drawing.Point(643, 53);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(114, 13);
             this.label1.TabIndex = 4;
@@ -127,7 +129,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(649, 55);
+            this.label2.Location = new System.Drawing.Point(649, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(108, 13);
             this.label2.TabIndex = 6;
@@ -135,7 +137,7 @@
             // 
             // MutationProbabilityTextBox
             // 
-            this.MutationProbabilityTextBox.Location = new System.Drawing.Point(763, 48);
+            this.MutationProbabilityTextBox.Location = new System.Drawing.Point(763, 78);
             this.MutationProbabilityTextBox.Name = "MutationProbabilityTextBox";
             this.MutationProbabilityTextBox.Size = new System.Drawing.Size(72, 20);
             this.MutationProbabilityTextBox.TabIndex = 5;
@@ -173,7 +175,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(656, 87);
+            this.label3.Location = new System.Drawing.Point(656, 117);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(101, 13);
             this.label3.TabIndex = 11;
@@ -181,7 +183,7 @@
             // 
             // SelectionRangeTextBox
             // 
-            this.SelectionRangeTextBox.Location = new System.Drawing.Point(763, 80);
+            this.SelectionRangeTextBox.Location = new System.Drawing.Point(763, 110);
             this.SelectionRangeTextBox.Name = "SelectionRangeTextBox";
             this.SelectionRangeTextBox.Size = new System.Drawing.Size(72, 20);
             this.SelectionRangeTextBox.TabIndex = 10;
@@ -189,7 +191,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(599, 119);
+            this.label4.Location = new System.Drawing.Point(599, 149);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(158, 13);
             this.label4.TabIndex = 13;
@@ -197,7 +199,7 @@
             // 
             // LocalMinimumDetectionTextBox
             // 
-            this.LocalMinimumDetectionTextBox.Location = new System.Drawing.Point(763, 112);
+            this.LocalMinimumDetectionTextBox.Location = new System.Drawing.Point(763, 142);
             this.LocalMinimumDetectionTextBox.Name = "LocalMinimumDetectionTextBox";
             this.LocalMinimumDetectionTextBox.Size = new System.Drawing.Size(72, 20);
             this.LocalMinimumDetectionTextBox.TabIndex = 12;
@@ -205,16 +207,16 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(673, 216);
+            this.label5.Location = new System.Drawing.Point(649, 246);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 13);
+            this.label5.Size = new System.Drawing.Size(108, 13);
             this.label5.TabIndex = 15;
-            this.label5.Text = "Minimum fitness:";
+            this.label5.Text = "Minimum fitness ever:";
             // 
             // MinimumFitnessTextBox
             // 
             this.MinimumFitnessTextBox.Enabled = false;
-            this.MinimumFitnessTextBox.Location = new System.Drawing.Point(763, 209);
+            this.MinimumFitnessTextBox.Location = new System.Drawing.Point(763, 239);
             this.MinimumFitnessTextBox.Name = "MinimumFitnessTextBox";
             this.MinimumFitnessTextBox.Size = new System.Drawing.Size(72, 20);
             this.MinimumFitnessTextBox.TabIndex = 14;
@@ -222,7 +224,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(685, 248);
+            this.label6.Location = new System.Drawing.Point(685, 278);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(72, 13);
             this.label6.TabIndex = 17;
@@ -231,7 +233,7 @@
             // RunningTimeTextBox
             // 
             this.RunningTimeTextBox.Enabled = false;
-            this.RunningTimeTextBox.Location = new System.Drawing.Point(763, 241);
+            this.RunningTimeTextBox.Location = new System.Drawing.Point(763, 271);
             this.RunningTimeTextBox.Name = "RunningTimeTextBox";
             this.RunningTimeTextBox.Size = new System.Drawing.Size(72, 20);
             this.RunningTimeTextBox.TabIndex = 16;
@@ -239,7 +241,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(639, 184);
+            this.label7.Location = new System.Drawing.Point(639, 214);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(118, 13);
             this.label7.TabIndex = 19;
@@ -248,7 +250,7 @@
             // InstantMinimumTextBox
             // 
             this.InstantMinimumTextBox.Enabled = false;
-            this.InstantMinimumTextBox.Location = new System.Drawing.Point(763, 177);
+            this.InstantMinimumTextBox.Location = new System.Drawing.Point(763, 207);
             this.InstantMinimumTextBox.Name = "InstantMinimumTextBox";
             this.InstantMinimumTextBox.Size = new System.Drawing.Size(72, 20);
             this.InstantMinimumTextBox.TabIndex = 18;
@@ -256,7 +258,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(685, 278);
+            this.label8.Location = new System.Drawing.Point(685, 308);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(67, 13);
             this.label8.TabIndex = 21;
@@ -265,7 +267,7 @@
             // GenerationsTextBox
             // 
             this.GenerationsTextBox.Enabled = false;
-            this.GenerationsTextBox.Location = new System.Drawing.Point(763, 271);
+            this.GenerationsTextBox.Location = new System.Drawing.Point(763, 301);
             this.GenerationsTextBox.Name = "GenerationsTextBox";
             this.GenerationsTextBox.Size = new System.Drawing.Size(72, 20);
             this.GenerationsTextBox.TabIndex = 20;
@@ -273,7 +275,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(722, 152);
+            this.label9.Location = new System.Drawing.Point(722, 182);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(35, 13);
             this.label9.TabIndex = 23;
@@ -281,16 +283,34 @@
             // 
             // ElitesTextBox
             // 
-            this.ElitesTextBox.Location = new System.Drawing.Point(763, 145);
+            this.ElitesTextBox.Location = new System.Drawing.Point(763, 175);
             this.ElitesTextBox.Name = "ElitesTextBox";
             this.ElitesTextBox.Size = new System.Drawing.Size(72, 20);
             this.ElitesTextBox.TabIndex = 22;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(676, 24);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(81, 13);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "Population size:";
+            // 
+            // PopulationSizeTextBox
+            // 
+            this.PopulationSizeTextBox.Location = new System.Drawing.Point(763, 17);
+            this.PopulationSizeTextBox.Name = "PopulationSizeTextBox";
+            this.PopulationSizeTextBox.Size = new System.Drawing.Size(72, 20);
+            this.PopulationSizeTextBox.TabIndex = 24;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(855, 430);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.PopulationSizeTextBox);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.ElitesTextBox);
             this.Controls.Add(this.label8);
@@ -350,6 +370,8 @@
         private System.Windows.Forms.TextBox GenerationsTextBox;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox ElitesTextBox;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox PopulationSizeTextBox;
     }
 }
 
