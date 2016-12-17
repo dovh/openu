@@ -30,7 +30,7 @@ namespace ApplicationSpace
         {
             InitializeComponent();
 
-            PopulationSizeTextBox.Text = "100";
+            PopulationSizeTextBox.Text = "250";
             CrossoverProbabiltyTextBox.Text = "0.7";
             MutationProbabilityTextBox.Text = "0.02";
             SelectionRangeTextBox.Text = "80";
