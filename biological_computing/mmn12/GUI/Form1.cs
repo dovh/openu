@@ -17,13 +17,12 @@ namespace ApplicationSpace
     {
         GA     m_ga;
         bool   m_running;
-        DateTime m_running_start_time; 
+        DateTime m_running_start_time;
+        int m_refreash_rate;
 
         Series m_avg_series;
         Series m_max_series;
         Series m_min_series;
-        int    m_refresh_rate; 
-        int    m_refresh_count; 
 
 
         public Form1()
@@ -36,8 +35,7 @@ namespace ApplicationSpace
             SelectionRangeTextBox.Text = "80";
             LocalMinimumDetectionTextBox.Text = "100";
             ElitesTextBox.Text = "5";
-            m_refresh_rate = 30;
-            m_refresh_count = 0;
+            RefreashRateTextBox.Text = "30";
 
             m_avg_series = ChartControl.Series["Average"];
             m_max_series = ChartControl.Series["Max"];
@@ -65,7 +63,7 @@ namespace ApplicationSpace
         void dump()
         {
             m_max_series.Points.AddY(m_ga.Max_fitness);
-            m_min_series.Points.AddY(m_ga.Min_fitness);
+            m_min_series.Points.AddY(m_ga.Min_fitness_Ever);
             m_avg_series.Points.AddY(m_ga.Avg_fitness);
 
             if (m_max_series.Points.Count > 80)
@@ -102,6 +100,8 @@ namespace ApplicationSpace
             int.TryParse(LocalMinimumDetectionTextBox.Text, out local_minimum_detection_period);
             int.TryParse(ElitesTextBox.Text, out elites);
             int.TryParse(PopulationSizeTextBox.Text, out population_size);
+            int.TryParse(RefreashRateTextBox.Text, out m_refreash_rate);
+
             m_ga.Pc = pc;
             m_ga.Pm = pm;
             m_ga.SelectionRange = selection_range;
@@ -139,6 +139,9 @@ namespace ApplicationSpace
 
         private void runThread()
         {
+            m_running_start_time = DateTime.Now;
+            DateTime time_sample = m_running_start_time;
+
             while (m_running)
             {
                 // create a new generation 
@@ -147,19 +150,19 @@ namespace ApplicationSpace
                 // detect and start a local minimum escape astrategy 
                 m_ga.Local_Minimum_Escape();
 
-                // refresh chart, each 'm_refresh_rate' iterations 
-                m_refresh_count++;
-                if (m_refresh_count == m_refresh_rate)
+                // refresh chart every 30 seconds
+                TimeSpan time_diff = DateTime.Now - time_sample;
+                if (time_diff.Seconds >= m_refreash_rate)
                 {
-                    m_refresh_count = 0;
+                    time_sample = DateTime.Now;
 
                     Debug.Assert(ChartControl.InvokeRequired);
                     dumpCallback d = new dumpCallback(dump);
                     Invoke(d, new object[] {});
 
                     // stop after 3 minutes 
-                    TimeSpan time_diff = DateTime.Now - m_running_start_time;
-                    if (time_diff.Minutes == 3)
+                    time_diff = DateTime.Now - m_running_start_time;
+                    if (time_diff.Minutes >= 3)
                         m_running = false;
                 }
             }
@@ -170,13 +173,11 @@ namespace ApplicationSpace
             if (!m_running)
             {
                 read_controls();
-                Update();
+                dump();
 
                 m_running = true;
                 Thread thread = new Thread(runThread);
                 thread.Start();
-
-                m_running_start_time = DateTime.Now;
             }
         }
 

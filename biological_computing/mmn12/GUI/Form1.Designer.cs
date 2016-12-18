@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.ChartControl = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.ExitButton = new System.Windows.Forms.Button();
             this.RunButton = new System.Windows.Forms.Button();
@@ -59,40 +59,42 @@
             this.ElitesTextBox = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.PopulationSizeTextBox = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.RefreashRateTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ChartControl)).BeginInit();
             this.SuspendLayout();
             // 
             // ChartControl
             // 
-            chartArea4.Name = "ChartArea1";
-            this.ChartControl.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.ChartControl.Legends.Add(legend4);
+            chartArea1.Name = "ChartArea1";
+            this.ChartControl.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.ChartControl.Legends.Add(legend1);
             this.ChartControl.Location = new System.Drawing.Point(12, 12);
             this.ChartControl.Name = "ChartControl";
-            series10.BorderWidth = 2;
-            series10.ChartArea = "ChartArea1";
-            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series10.Color = System.Drawing.Color.Red;
-            series10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series10.Legend = "Legend1";
-            series10.Name = "Average";
-            series11.ChartArea = "ChartArea1";
-            series11.Legend = "Legend1";
-            series11.Name = "Max";
-            series12.ChartArea = "ChartArea1";
-            series12.Legend = "Legend1";
-            series12.Name = "Min";
-            this.ChartControl.Series.Add(series10);
-            this.ChartControl.Series.Add(series11);
-            this.ChartControl.Series.Add(series12);
-            this.ChartControl.Size = new System.Drawing.Size(571, 405);
+            series1.BorderWidth = 2;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.Red;
+            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series1.Legend = "Legend1";
+            series1.Name = "Average";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Max";
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Min";
+            this.ChartControl.Series.Add(series1);
+            this.ChartControl.Series.Add(series2);
+            this.ChartControl.Series.Add(series3);
+            this.ChartControl.Size = new System.Drawing.Size(571, 422);
             this.ChartControl.TabIndex = 0;
             this.ChartControl.Text = "chart1";
             // 
             // ExitButton
             // 
-            this.ExitButton.Location = new System.Drawing.Point(763, 394);
+            this.ExitButton.Location = new System.Drawing.Point(763, 411);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(75, 23);
             this.ExitButton.TabIndex = 1;
@@ -102,7 +104,7 @@
             // 
             // RunButton
             // 
-            this.RunButton.Location = new System.Drawing.Point(682, 365);
+            this.RunButton.Location = new System.Drawing.Point(682, 382);
             this.RunButton.Name = "RunButton";
             this.RunButton.Size = new System.Drawing.Size(75, 23);
             this.RunButton.TabIndex = 2;
@@ -144,7 +146,7 @@
             // 
             // PauseButton
             // 
-            this.PauseButton.Location = new System.Drawing.Point(682, 394);
+            this.PauseButton.Location = new System.Drawing.Point(682, 411);
             this.PauseButton.Name = "PauseButton";
             this.PauseButton.Size = new System.Drawing.Size(75, 23);
             this.PauseButton.TabIndex = 7;
@@ -154,7 +156,7 @@
             // 
             // InitializeButton
             // 
-            this.InitializeButton.Location = new System.Drawing.Point(600, 365);
+            this.InitializeButton.Location = new System.Drawing.Point(600, 382);
             this.InitializeButton.Name = "InitializeButton";
             this.InitializeButton.Size = new System.Drawing.Size(75, 23);
             this.InitializeButton.TabIndex = 8;
@@ -164,7 +166,7 @@
             // 
             // StepButton
             // 
-            this.StepButton.Location = new System.Drawing.Point(601, 394);
+            this.StepButton.Location = new System.Drawing.Point(601, 411);
             this.StepButton.Name = "StepButton";
             this.StepButton.Size = new System.Drawing.Size(75, 23);
             this.StepButton.TabIndex = 9;
@@ -304,11 +306,30 @@
             this.PopulationSizeTextBox.Size = new System.Drawing.Size(72, 20);
             this.PopulationSizeTextBox.TabIndex = 24;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(629, 338);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(123, 13);
+            this.label11.TabIndex = 27;
+            this.label11.Text = "Refreash rate (seconds):";
+            // 
+            // RefreashRateTextBox
+            // 
+            this.RefreashRateTextBox.Enabled = false;
+            this.RefreashRateTextBox.Location = new System.Drawing.Point(763, 331);
+            this.RefreashRateTextBox.Name = "RefreashRateTextBox";
+            this.RefreashRateTextBox.Size = new System.Drawing.Size(72, 20);
+            this.RefreashRateTextBox.TabIndex = 26;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(855, 430);
+            this.ClientSize = new System.Drawing.Size(855, 446);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.RefreashRateTextBox);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.PopulationSizeTextBox);
             this.Controls.Add(this.label9);
@@ -372,6 +393,8 @@
         private System.Windows.Forms.TextBox ElitesTextBox;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox PopulationSizeTextBox;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox RefreashRateTextBox;
     }
 }
 
