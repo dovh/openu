@@ -30,9 +30,10 @@
         {
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.ChartControl = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.ExitButton = new System.Windows.Forms.Button();
             this.RunButton = new System.Windows.Forms.Button();
@@ -72,22 +73,27 @@
             this.ChartControl.Legends.Add(legend2);
             this.ChartControl.Location = new System.Drawing.Point(12, 12);
             this.ChartControl.Name = "ChartControl";
-            series4.BorderWidth = 2;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Color = System.Drawing.Color.Red;
-            series4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series4.Legend = "Legend1";
-            series4.Name = "Average";
+            series5.BorderWidth = 2;
             series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Color = System.Drawing.Color.Red;
+            series5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series5.Legend = "Legend1";
-            series5.Name = "Max";
+            series5.Name = "Average";
             series6.ChartArea = "ChartArea1";
             series6.Legend = "Legend1";
-            series6.Name = "Min";
-            this.ChartControl.Series.Add(series4);
+            series6.Name = "Max";
+            series7.ChartArea = "ChartArea1";
+            series7.Legend = "Legend1";
+            series7.Name = "Min";
+            series8.ChartArea = "ChartArea1";
+            series8.IsXValueIndexed = true;
+            series8.Legend = "Legend1";
+            series8.Name = "Min ever";
             this.ChartControl.Series.Add(series5);
             this.ChartControl.Series.Add(series6);
+            this.ChartControl.Series.Add(series7);
+            this.ChartControl.Series.Add(series8);
             this.ChartControl.Size = new System.Drawing.Size(571, 422);
             this.ChartControl.TabIndex = 0;
             this.ChartControl.Text = "chart1";
@@ -311,9 +317,9 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(629, 16);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(123, 13);
+            this.label11.Size = new System.Drawing.Size(117, 13);
             this.label11.TabIndex = 27;
-            this.label11.Text = "Refreash rate (seconds):";
+            this.label11.Text = "Refresh rate (seconds):";
             // 
             // RefreashRateTextBox
             // 

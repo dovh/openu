@@ -23,23 +23,25 @@ namespace ApplicationSpace
         Series m_avg_series;
         Series m_max_series;
         Series m_min_series;
+        Series m_min_ever_series;
 
 
         public Form1()
         {
             InitializeComponent();
 
+            RefreashRateTextBox.Text = "15";
             PopulationSizeTextBox.Text = "250";
             CrossoverProbabiltyTextBox.Text = "0.7";
             MutationProbabilityTextBox.Text = "0.02";
             SelectionRangeTextBox.Text = "80";
             LocalMinimumDetectionTextBox.Text = "100";
             ElitesTextBox.Text = "5";
-            RefreashRateTextBox.Text = "30";
 
             m_avg_series = ChartControl.Series["Average"];
             m_max_series = ChartControl.Series["Max"];
             m_min_series = ChartControl.Series["Min"];
+            m_min_ever_series = ChartControl.Series["Min ever"];
 
             m_ga = new GA();
 
@@ -57,20 +59,23 @@ namespace ApplicationSpace
             m_avg_series.Points.Clear();
             m_max_series.Points.Clear();
             m_min_series.Points.Clear();
+            m_min_ever_series.Points.Clear();
         }
 
         delegate void dumpCallback();
         void dump()
         {
             m_max_series.Points.AddY(m_ga.Max_fitness);
-            m_min_series.Points.AddY(m_ga.Min_fitness_Ever);
             m_avg_series.Points.AddY(m_ga.Avg_fitness);
+            m_min_series.Points.AddY(m_ga.Min_fitness);
+            m_min_ever_series.Points.AddY(m_ga.Min_fitness_Ever);
 
             if (m_max_series.Points.Count > 80)
             {
                 m_max_series.Points.RemoveAt(0);
-                m_min_series.Points.RemoveAt(0);
                 m_avg_series.Points.RemoveAt(0);
+                m_min_series.Points.RemoveAt(0);
+                m_min_ever_series.Points.RemoveAt(0);
             }
 
             InstantMinimumTextBox.Text = m_ga.Min_fitness.ToString();

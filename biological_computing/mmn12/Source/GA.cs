@@ -14,6 +14,8 @@ namespace ApplicationSpace
          *              Static Members 
          ********************************************************/
         static Random m_random;
+        static bool m_randomize_the_same_population = true; // Set this to true, to randomize the same population 
+
 
         /********************************************************
          *              Members 
@@ -55,6 +57,7 @@ namespace ApplicationSpace
         public double Avg_fitness { get { return m_avg_fitness; } }
         public int Min_fitness_Ever { get { return m_min_fitness_ever; } set { m_min_fitness_ever = value; } }
         public int Generations { get { return m_generations; } set { m_generations = value; } }
+        public static bool Is_randomize_the_same_population { get { return GA.m_randomize_the_same_population; } }
 
         public int Population
         {
@@ -69,6 +72,13 @@ namespace ApplicationSpace
                 }
             }
         }
+
+        public static int RandomSeed 
+        {   set {  if (value == -1)
+                m_random = new Random();
+            else 
+                m_random = new Random(value); 
+        }}
 
         /********************************************************
          *              Methods 
@@ -104,6 +114,9 @@ namespace ApplicationSpace
 
         public void Randomize()
         {
+            if (m_randomize_the_same_population)
+                m_random = new Random(111);
+
             m_chromosomes = new List<Chromosome>();
             for (int i = 0; i < m_population; i++)
             {
@@ -114,6 +127,9 @@ namespace ApplicationSpace
             }
 
             update();
+
+            if (m_randomize_the_same_population)
+                m_random = new Random();
         }
 
         Chromosome Select()
@@ -185,8 +201,8 @@ namespace ApplicationSpace
                 }
                 else
                 {
-                    //if (0.5 < m_random.NextDouble())
-                    if (first.Fitness < second.Fitness)
+                    //if (first.Fitness < second.Fitness)
+                    if (0.5 < m_random.NextDouble())
                         offspring = first.DeepCopy();
                     else
                         offspring = second.DeepCopy();

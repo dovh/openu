@@ -29,7 +29,7 @@ namespace ApplicationSpace
         }
 
         protected Person(int id)
-        {
+       {
             m_id = id;
 
             /*

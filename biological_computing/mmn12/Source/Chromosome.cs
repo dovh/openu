@@ -64,6 +64,10 @@ namespace ApplicationSpace
         static ArrayList m_women_arr;
         static ArrayList m_dogs_arr;
 
+        // key: delta between avarage parents fitnees to offspring fitness. 
+        // value: bin repetitions 
+        static SortedDictionary<int, int> m_crossover_histogram = new SortedDictionary<int, int>();
+
         /********************************************************************
          *          Members 
          ********************************************************************/ 
@@ -99,6 +103,9 @@ namespace ApplicationSpace
 
         static public void StaticInitialize()
         {
+            if (GA.Is_randomize_the_same_population)
+                GA.RandomSeed = 111;
+
             m_men_arr = new ArrayList(m_capacity);
             m_women_arr = new ArrayList(m_capacity);
             m_dogs_arr = new ArrayList(m_capacity);
@@ -109,6 +116,9 @@ namespace ApplicationSpace
                 m_women_arr.Add(new Women(i));
                 m_dogs_arr.Add(new Dog(i));
             }
+
+            if (GA.Is_randomize_the_same_population)
+                GA.RandomSeed = -1;
         }
 
         public void Randomize()
@@ -212,16 +222,40 @@ namespace ApplicationSpace
 
             int position = (int)(GA.NextRandom * m_capacity);
 
-            // do single cut, cross over 
-            for (int i = 0; i < position; i++)
-                m_triples.Add(first.m_triples[i].DeepClone());
-            for (int i = position; i < m_capacity; i++)
-                m_triples.Add(second.m_triples[i].DeepClone());
+            // choose between two offsprings 
+            if (0.5 < GA.NextRandom)
+            {
+                // do single cut, cross over 
+                for (int i = 0; i < position; i++)
+                    m_triples.Add(second.m_triples[i].DeepClone());
+                for (int i = position; i < m_capacity; i++)
+                    m_triples.Add(first.m_triples[i].DeepClone());
+            }
+            else
+            {
+                // do single cut, cross over 
+                for (int i = 0; i < position; i++)
+                    m_triples.Add(first.m_triples[i].DeepClone());
+                for (int i = position; i < m_capacity; i++)
+                    m_triples.Add(second.m_triples[i].DeepClone());
+
+            }
 
             // fix errors 
             FixErrors(new Men());
             FixErrors(new Women());
             FixErrors(new Dog());
+
+            // update crossover histogram, not including the ones when parents are the same one 
+            if (first.Fitness != second.Fitness)
+            {
+                ComputeFitness();
+                int key = m_fitness - (first.Fitness + second.Fitness) / 2;
+                if (!m_crossover_histogram.ContainsKey(key))
+                    m_crossover_histogram[key] = 1;
+                else
+                    m_crossover_histogram[key]++;
+            }
         }
 
         public void Mutate()
