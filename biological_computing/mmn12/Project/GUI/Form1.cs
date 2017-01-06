@@ -30,7 +30,7 @@ namespace ApplicationSpace
         {
             InitializeComponent();
 
-            RefreashRateTextBox.Text = "15";
+            RefreashRateTextBox.Text = "1";
             PopulationSizeTextBox.Text = "250";
             CrossoverProbabiltyTextBox.Text = "0.7";
             MutationProbabilityTextBox.Text = "0.02";
