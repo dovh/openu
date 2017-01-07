@@ -11,15 +11,13 @@ namespace WindowsFormsApplication1.Source
     {
         int m_X;
         int m_Y;
-        double m_Value;
-        double m_NextValue; 
+        protected int m_Value;
 
-        Dictionary<Neuron, double> m_Inputs;
+        protected Dictionary<Neuron, double> m_Inputs;
 
         public int X { get { return m_X; } }
         public int Y { get { return m_Y; } }
-        public double Value { get { return m_Value; } }
-        public double NextValue { get { return m_NextValue; } }
+        public int Value { get { return m_Value; } }
 
         public Neuron(int x, int y)
         {
@@ -30,7 +28,10 @@ namespace WindowsFormsApplication1.Source
 
         public void Randomize()
         {
-            m_Value = RandomGen.Get * 2 - 1;
+            if (0.5 < RandomGen.Get)
+                m_Value = 1;
+            else
+                m_Value = 0;
         }
 
         public void ConnectInput(Neuron N)
@@ -48,23 +49,44 @@ namespace WindowsFormsApplication1.Source
             m_Inputs[Ni] = Weight;
         }
 
-        public void CalculateNextValue()
+        public virtual void Calculate()
         {
-            m_NextValue = 0;
+            double H = 0;
             foreach (KeyValuePair<Neuron, double> input in m_Inputs)
             {
                 Neuron Ni = input.Key;
                 double Weight = input.Value;
-                m_NextValue += Ni.Value * Weight;
+                H += Ni.Value * Weight;
             }
-        }
 
-        public void NormalizeNextValueAndUpdate(double Norm)
+            if (0 < H)
+                m_Value = 1;
+            else if (H < 0)
+                m_Value = 0; 
+        }
+    }
+
+    class NeuronN0 : Neuron
+    {
+        public NeuronN0(int x, int y) 
+            : base(x,y) { }
+
+        public override void Calculate()
         {
-            m_Value = m_NextValue / Norm;
-        }
+            double H = 0;
+            foreach (KeyValuePair<Neuron, double> input in m_Inputs)
+            {
+                Neuron Ni = input.Key;
+                double Weight = input.Value;
+                H += Ni.Value * Weight;
+            }
 
-        
+            if (H == 10)
+                m_Value = 1;
+            else 
+                m_Value = -1; 
+
+        }
 
     }
 }

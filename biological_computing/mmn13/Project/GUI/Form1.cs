@@ -53,14 +53,14 @@ namespace WindowsFormsApplication1
         void dump()
         {
             Source.Preferences data = Source.Preferences.GetInstance();
-            for (int i = 0; i < 10; i++)
+            for (int y = 0; y < 10; y++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int x = 0; x < 10; x++)
                 {
-                    PreferencesGridView.Rows[i].Cells[j + 1].Value = data.GetPreferenceByIndex(i, j).ToString();
+                    PreferencesGridView.Rows[y].Cells[x + 1].Value = data.GetPreferenceByIndex(y, x).ToString();
 
-                    double value = m_Network.Neuron(i, j).Value;
-                    NetworkGridView.Rows[i].Cells[j].Value = String.Format("{0:N}", value);
+                    int value = m_Network.Neuron(x, y).Value;
+                    NetworkGridView.Rows[y].Cells[x].Value = value.ToString(); // String.Format("{0:N}", value);
                 }
             }
         }

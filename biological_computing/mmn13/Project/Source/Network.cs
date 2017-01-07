@@ -30,12 +30,12 @@ namespace WindowsFormsApplication1.Source
             m_D = 1;
 
             // Create matrix neurons 
-            for (int x = 0; x < m_width; x++)
-                for (int y = 0; y < m_height; y++)
+            for (int y = 0; y < m_height; y++)
+                for (int x = 0; x < m_width; x++)
                     m_neurons[x, y] = new Neuron(x, y);
 
             // Create N0 neuron - Represent Factor C - Number of total set neurons 
-            Neuron N0 = new Neuron(0, m_height + 1);
+            Neuron N0 = new NeuronN0(0, m_height + 1);
             m_neurons[0, m_height] = N0;
 
             // Create N1 neuron - Represent Factor D - Total happiness 
@@ -43,15 +43,15 @@ namespace WindowsFormsApplication1.Source
             m_neurons[1, m_height] = N1;
 
             // connect matrix neurons 
-            for (int x = 0; x < m_width; x++)
+            for (int y = 0; y < m_height; y++)
             {
-                for (int y = 0; y < m_height; y++)
+                for (int x = 0; x < m_width; x++)
                 {
                     Neuron N = m_neurons[x, y];
 
-                    for (int x2 = 0; x2 < m_width; x2++)
+                    for (int y2 = 0; y2 < m_height; y2++)
                     {
-                        for (int y2 = 0; y2 < m_height; y2++)
+                        for (int x2 = 0; x2 < m_width; x2++)
                         {
                             if (x == x2 && y == y2)
                                 continue;
@@ -76,8 +76,8 @@ namespace WindowsFormsApplication1.Source
             Neuron N1 = m_neurons[1, m_height];
 
             // randomize neurons values 
-            for (int x = 0; x < m_width; x++)
-                for (int y = 0; y < m_height; y++)
+            for (int y = 0; y < m_height; y++)
+                for (int x = 0; x < m_width; x++)
                     m_neurons[x, y].Randomize();
 
             N0.Randomize();
@@ -90,30 +90,33 @@ namespace WindowsFormsApplication1.Source
             Neuron N1 = m_neurons[1, m_height];
 
             // Update matrix neurons weight 
-            for (int x = 0; x < m_width; x++)
+            for (int y = 0; y < m_height; y++)
             {
-                for (int y = 0; y < m_height; y++)
+                for (int x = 0; x < m_width; x++)
                 {
                     Neuron N = m_neurons[x, y];
 
-                    for (int x2 = 0; x2 < m_width; x2++)
+                    for (int y2 = 0; y2 < m_height; y2++)
                     {
-                        for (int y2 = 0; y2 < m_height; y2++)
+                        for (int x2 = 0; x2 < m_width; x2++)
                         {
                             if (x == x2 && y == y2)
                                 continue;
 
-                            double Weight = 0;
-                            if (x == x2) Weight += m_A;
-                            if (y == y2) Weight += m_B;
-
                             Neuron Ni = m_neurons[x2, y2];
+
+                            double Weight = 0;
+                            if (y == y2) 
+                                Weight += 0.5 * m_A * N.Value * Ni.Value;
+                            if (x == x2) 
+                                Weight += 0.5 * m_B * N.Value * Ni.Value;
+
                             N.UpdateWeight(Ni, Weight);
                         }
                     }
 
-                    N.UpdateWeight(N0, m_C);
-                    N0.UpdateWeight(N, m_C);
+                    N.UpdateWeight(N0, m_C * N.Value);
+                    N0.UpdateWeight(N, m_C * N.Value);
 
                     //N.UpdateWeight(N1, m_D);
                     //N1.UpdateWeight(N, m_D);
@@ -126,38 +129,18 @@ namespace WindowsFormsApplication1.Source
             Neuron N0 = m_neurons[0, m_height];
             Neuron N1 = m_neurons[1, m_height];
 
-            double MaxNextValue = 0; 
-
-            // Update matrix neurons weight 
-            for (int x = 0; x < m_width; x++)
+            // Calculate matrix neurons weight 
+            for (int y = 0; y < m_height; y++)
             {
-                for (int y = 0; y < m_height; y++)
+                for (int x = 0; x < m_width; x++)
                 {
                     Neuron N = m_neurons[x, y];
-                    N.CalculateNextValue();
-                    MaxNextValue = Math.Max(MaxNextValue, N.NextValue);
+                    N.Calculate();
                 }
             }
 
-            N0.CalculateNextValue();
-            MaxNextValue = Math.Max(MaxNextValue, N0.NextValue);
-            
+            N0.Calculate();
             //N1.Calculate();
-            //MaxNextValue = Math.Max(MaxNextValue, N1.NextValue);
-
-            //MaxNextValue = 1;
-
-            for (int x = 0; x < m_width; x++)
-            {
-                for (int y = 0; y < m_height; y++)
-                {
-                    Neuron N = m_neurons[x, y];
-                    N.NormalizeNextValueAndUpdate(MaxNextValue);
-                }
-            }
-
-            N0.NormalizeNextValueAndUpdate(MaxNextValue);
-            N1.NormalizeNextValueAndUpdate(MaxNextValue);
 
         }
 
