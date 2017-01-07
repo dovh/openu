@@ -12,6 +12,8 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        Source.Network m_Network; 
+
         void InitializeGrid(DataGridView Grid, int width, int height)
         {
             Grid.RowHeadersVisible = false;
@@ -42,6 +44,9 @@ namespace WindowsFormsApplication1
                 PreferencesGridView.Rows[i].Cells[0].Style.ApplyStyle(Style);
             }
 
+            // m_network 
+            m_Network = new Source.Network(10, 10);
+
             dump();
         }
 
@@ -49,13 +54,26 @@ namespace WindowsFormsApplication1
         {
             Source.Data data = Source.Data.GetInstance();
             for (int i = 0; i < 10; i++)
+            {
                 for (int j = 0; j < 10; j++)
-                    PreferencesGridView.Rows[i].Cells[j + 1].Value = data.GetPreferences(i,j).ToString();
+                {
+                    PreferencesGridView.Rows[i].Cells[j + 1].Value = data.GetPreference(i, j).ToString();
+
+                    double value = m_Network.Neuron(i, j).Value;
+                    NetworkGridView.Rows[i].Cells[j].Value = String.Format("{0:N}", value);
+                }
+            }
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void StepButton_Click(object sender, EventArgs e)
+        {
+            m_Network.Step();
+            dump();
         }
 
         
