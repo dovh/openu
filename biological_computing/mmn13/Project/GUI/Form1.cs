@@ -72,7 +72,7 @@ namespace WindowsFormsApplication1
             dump();
         }
 
-        private void InitializeButton_Click(object sender, EventArgs e)
+        private void RandomizeButton_Click(object sender, EventArgs e)
         {
             m_Network.Randomize();
             dump();
@@ -82,6 +82,7 @@ namespace WindowsFormsApplication1
         {
             Application.Exit();
         }
+
 
         
     }

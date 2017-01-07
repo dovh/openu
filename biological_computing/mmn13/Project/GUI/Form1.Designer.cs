@@ -33,7 +33,7 @@
             this.ExitButton = new System.Windows.Forms.Button();
             this.RunButton = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
-            this.InitializeButton = new System.Windows.Forms.Button();
+            this.RandomizeButton = new System.Windows.Forms.Button();
             this.ATextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -95,15 +95,15 @@
             this.StopButton.Text = "Stop";
             this.StopButton.UseVisualStyleBackColor = true;
             // 
-            // InitializeButton
+            // RandomizeButton
             // 
-            this.InitializeButton.Location = new System.Drawing.Point(556, 408);
-            this.InitializeButton.Name = "InitializeButton";
-            this.InitializeButton.Size = new System.Drawing.Size(75, 23);
-            this.InitializeButton.TabIndex = 5;
-            this.InitializeButton.Text = "Initialize";
-            this.InitializeButton.UseVisualStyleBackColor = true;
-            this.InitializeButton.Click += new System.EventHandler(this.InitializeButton_Click);
+            this.RandomizeButton.Location = new System.Drawing.Point(556, 408);
+            this.RandomizeButton.Name = "RandomizeButton";
+            this.RandomizeButton.Size = new System.Drawing.Size(75, 23);
+            this.RandomizeButton.TabIndex = 5;
+            this.RandomizeButton.Text = "Randomize";
+            this.RandomizeButton.UseVisualStyleBackColor = true;
+            this.RandomizeButton.Click += new System.EventHandler(this.RandomizeButton_Click);
             // 
             // ATextBox
             // 
@@ -193,7 +193,7 @@
             this.Controls.Add(this.BTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ATextBox);
-            this.Controls.Add(this.InitializeButton);
+            this.Controls.Add(this.RandomizeButton);
             this.Controls.Add(this.StopButton);
             this.Controls.Add(this.RunButton);
             this.Controls.Add(this.ExitButton);
@@ -215,7 +215,7 @@
         private System.Windows.Forms.Button ExitButton;
         private System.Windows.Forms.Button RunButton;
         private System.Windows.Forms.Button StopButton;
-        private System.Windows.Forms.Button InitializeButton;
+        private System.Windows.Forms.Button RandomizeButton;
         private System.Windows.Forms.TextBox ATextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

@@ -70,6 +70,20 @@ namespace WindowsFormsApplication1.Source
             }
         }
 
+        public void Randomize()
+        {
+            Neuron N0 = m_neurons[0, m_height];
+            Neuron N1 = m_neurons[1, m_height];
+
+            // randomize neurons values 
+            for (int x = 0; x < m_width; x++)
+                for (int y = 0; y < m_height; y++)
+                    m_neurons[x, y].Randomize();
+
+            N0.Randomize();
+            N1.Randomize();
+        }
+
         public void UpdateWeights()
         {
             Neuron N0 = m_neurons[0, m_height];
@@ -112,32 +126,41 @@ namespace WindowsFormsApplication1.Source
             Neuron N0 = m_neurons[0, m_height];
             Neuron N1 = m_neurons[1, m_height];
 
+            double MaxNextValue = 0; 
+
             // Update matrix neurons weight 
             for (int x = 0; x < m_width; x++)
             {
                 for (int y = 0; y < m_height; y++)
                 {
                     Neuron N = m_neurons[x, y];
-                    N.Calculate();
+                    N.CalculateNextValue();
+                    MaxNextValue = Math.Max(MaxNextValue, N.NextValue);
                 }
             }
 
-            N0.Calculate();
+            N0.CalculateNextValue();
+            MaxNextValue = Math.Max(MaxNextValue, N0.NextValue);
+            
             //N1.Calculate();
-        }
+            //MaxNextValue = Math.Max(MaxNextValue, N1.NextValue);
 
-        public void Randomize()
-        {
-            Neuron N0 = m_neurons[0, m_height];
-            Neuron N1 = m_neurons[1, m_height];
+            //MaxNextValue = 1;
 
-            // randomize neurons values 
             for (int x = 0; x < m_width; x++)
+            {
                 for (int y = 0; y < m_height; y++)
-                    m_neurons[x, y].Randomize();
+                {
+                    Neuron N = m_neurons[x, y];
+                    N.NormalizeNextValueAndUpdate(MaxNextValue);
+                }
+            }
 
-            N0.Randomize();
-            N1.Randomize();
+            N0.NormalizeNextValueAndUpdate(MaxNextValue);
+            N1.NormalizeNextValueAndUpdate(MaxNextValue);
+
         }
+
+        
     }
 }
