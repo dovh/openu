@@ -121,6 +121,23 @@ namespace WindowsFormsApplication1.Source
                     N.Calculate();
                 }
             }
+
+            N0.Calculate();
+            //N1.Calculate();
+        }
+
+        public void Randomize()
+        {
+            Neuron N0 = m_neurons[0, m_height];
+            Neuron N1 = m_neurons[1, m_height];
+
+            // randomize neurons values 
+            for (int x = 0; x < m_width; x++)
+                for (int y = 0; y < m_height; y++)
+                    m_neurons[x, y].Randomize();
+
+            N0.Randomize();
+            N1.Randomize();
         }
     }
 }

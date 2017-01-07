@@ -103,6 +103,7 @@
             this.InitializeButton.TabIndex = 5;
             this.InitializeButton.Text = "Initialize";
             this.InitializeButton.UseVisualStyleBackColor = true;
+            this.InitializeButton.Click += new System.EventHandler(this.InitializeButton_Click);
             // 
             // ATextBox
             // 

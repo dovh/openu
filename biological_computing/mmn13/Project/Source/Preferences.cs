@@ -7,27 +7,31 @@ using System.Diagnostics;
 
 namespace WindowsFormsApplication1.Source
 {
-    class Data
+    class RandomGen
     {
-        static Data m_instance = null; 
-        Random m_random;
+        static Random m_random = new Random(123);
+        public static double Get { get { return RandomGen.m_random.NextDouble(); } }
+    }
+
+    class Preferences
+    {
+        static Preferences m_instance = null; 
         int[,] m_preferences;
 
-        Data()
+        Preferences()
         {
-            m_random = new Random(123);
             m_preferences = new int[10, 10];
-            Randomize();
+            RandomizePreferences();
         }
 
-        static public Data GetInstance()
+        static public Preferences GetInstance()
         {
             if (m_instance == null)
-                m_instance = new Data();
+                m_instance = new Preferences();
             return m_instance;
         }
 
-        void Randomize()
+        void RandomizePreferences()
         {
             HashSet<int> set = new HashSet<int>();
             for (int i = 0; i < 10; i++)
@@ -36,7 +40,7 @@ namespace WindowsFormsApplication1.Source
                 set.Clear();
                 while(set.Count < 10)
                 {
-                    int rnd = (int)(m_random.NextDouble() * 10);
+                    int rnd = (int)(RandomGen.Get * 10);
                     if (!set.Contains(rnd))
                     {
                         set.Add(rnd);
@@ -46,13 +50,13 @@ namespace WindowsFormsApplication1.Source
             }
         }
 
-        public int GetPreference(int women, int index)  
+        public int GetPreferenceByIndex(int women, int index)  
         {
             Debug.Assert(0 <= index && index < 10);
             return m_preferences[women, index];
         }
 
-        public int GetMenPreference(int women, int men)
+        public int GetPreferenceByMen(int women, int men)
         {
             Debug.Assert(1 <= men && men <= 10);
 

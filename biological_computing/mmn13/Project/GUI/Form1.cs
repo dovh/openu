@@ -46,18 +46,18 @@ namespace WindowsFormsApplication1
 
             // m_network 
             m_Network = new Source.Network(10, 10);
-
+            m_Network.Randomize();
             dump();
         }
 
         void dump()
         {
-            Source.Data data = Source.Data.GetInstance();
+            Source.Preferences data = Source.Preferences.GetInstance();
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    PreferencesGridView.Rows[i].Cells[j + 1].Value = data.GetPreference(i, j).ToString();
+                    PreferencesGridView.Rows[i].Cells[j + 1].Value = data.GetPreferenceByIndex(i, j).ToString();
 
                     double value = m_Network.Neuron(i, j).Value;
                     NetworkGridView.Rows[i].Cells[j].Value = String.Format("{0:N}", value);
@@ -65,15 +65,22 @@ namespace WindowsFormsApplication1
             }
         }
 
+        private void StepButton_Click(object sender, EventArgs e)
+        {
+            m_Network.UpdateWeights();
+            m_Network.Step();
+            dump();
+        }
+
+        private void InitializeButton_Click(object sender, EventArgs e)
+        {
+            m_Network.Randomize();
+            dump();
+        }
+
         private void ExitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        private void StepButton_Click(object sender, EventArgs e)
-        {
-            m_Network.Step();
-            dump();
         }
 
         

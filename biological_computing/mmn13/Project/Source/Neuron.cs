@@ -54,5 +54,10 @@ namespace WindowsFormsApplication1.Source
             m_value = value;
         }
 
+        public void Randomize()
+        {
+            m_value = RandomGen.Get;
+        }
+
     }
 }
