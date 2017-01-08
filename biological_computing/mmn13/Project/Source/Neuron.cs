@@ -31,7 +31,7 @@ namespace WindowsFormsApplication1.Source
             if (0.5 < RandomGen.Get)
                 m_Value = 1;
             else
-                m_Value = 0;
+                m_Value = -1;
         }
 
         public void ConnectInput(Neuron N)
@@ -62,7 +62,7 @@ namespace WindowsFormsApplication1.Source
             if (0 < H)
                 m_Value = 1;
             else if (H < 0)
-                m_Value = 0; 
+                m_Value = -1; 
         }
     }
 

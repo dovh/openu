@@ -106,12 +106,19 @@ namespace WindowsFormsApplication1.Source
                             Neuron Ni = m_neurons[x2, y2];
 
                             double Weight = 0;
-                            if (y == y2) 
-                                Weight += 0.5 * m_A * N.Value * Ni.Value;
-                            if (x == x2) 
-                                Weight += 0.5 * m_B * N.Value * Ni.Value;
+                            if (x == x2 || y == y2)
+                            {
+                                if (N.Value == 1 && Ni.Value == 1)
+                                    Weight = -1;
+                                else if (N.Value == 1 && Ni.Value == -1)
+                                    Weight = -1.1;
+                                else if (N.Value == -1 && Ni.Value == 1)
+                                    Weight = -1.1;
+                                else // if (N.Value == -1 && Ni.Value == -1)
+                                    Weight = 0;
+                            }
 
-                            N.UpdateWeight(Ni, Weight);
+                            N.UpdateWeight(Ni, 0.5 * m_B * Weight);
                         }
                     }
 
