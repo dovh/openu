@@ -9,7 +9,7 @@ namespace WindowsFormsApplication1.Source
 {
     class RandomGen
     {
-        static Random m_random = new Random(123);
+        static Random m_random = new Random();
         public static double Get { get { return RandomGen.m_random.NextDouble(); } }
     }
 

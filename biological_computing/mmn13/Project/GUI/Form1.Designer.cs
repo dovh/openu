@@ -54,14 +54,14 @@
             this.NetworkGridView.Location = new System.Drawing.Point(12, 38);
             this.NetworkGridView.Name = "NetworkGridView";
             this.NetworkGridView.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.NetworkGridView.Size = new System.Drawing.Size(423, 364);
+            this.NetworkGridView.Size = new System.Drawing.Size(503, 433);
             this.NetworkGridView.TabIndex = 0;
             // 
             // PreferencesGridView
             // 
             this.PreferencesGridView.BackgroundColor = System.Drawing.SystemColors.Window;
             this.PreferencesGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.PreferencesGridView.Location = new System.Drawing.Point(462, 152);
+            this.PreferencesGridView.Location = new System.Drawing.Point(532, 221);
             this.PreferencesGridView.Name = "PreferencesGridView";
             this.PreferencesGridView.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.PreferencesGridView.Size = new System.Drawing.Size(250, 250);
@@ -69,7 +69,7 @@
             // 
             // ExitButton
             // 
-            this.ExitButton.Location = new System.Drawing.Point(637, 408);
+            this.ExitButton.Location = new System.Drawing.Point(707, 478);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(75, 23);
             this.ExitButton.TabIndex = 2;
@@ -79,25 +79,27 @@
             // 
             // RunButton
             // 
-            this.RunButton.Location = new System.Drawing.Point(311, 408);
+            this.RunButton.Location = new System.Drawing.Point(381, 478);
             this.RunButton.Name = "RunButton";
             this.RunButton.Size = new System.Drawing.Size(75, 23);
             this.RunButton.TabIndex = 3;
             this.RunButton.Text = "Run";
             this.RunButton.UseVisualStyleBackColor = true;
+            this.RunButton.Click += new System.EventHandler(this.RunButton_Click);
             // 
             // StopButton
             // 
-            this.StopButton.Location = new System.Drawing.Point(392, 408);
+            this.StopButton.Location = new System.Drawing.Point(462, 478);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(75, 23);
             this.StopButton.TabIndex = 4;
             this.StopButton.Text = "Stop";
             this.StopButton.UseVisualStyleBackColor = true;
+            this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
             // 
             // RandomizeButton
             // 
-            this.RandomizeButton.Location = new System.Drawing.Point(556, 408);
+            this.RandomizeButton.Location = new System.Drawing.Point(626, 478);
             this.RandomizeButton.Name = "RandomizeButton";
             this.RandomizeButton.Size = new System.Drawing.Size(75, 23);
             this.RandomizeButton.TabIndex = 5;
@@ -171,7 +173,7 @@
             // 
             // StepButton
             // 
-            this.StepButton.Location = new System.Drawing.Point(475, 407);
+            this.StepButton.Location = new System.Drawing.Point(545, 477);
             this.StepButton.Name = "StepButton";
             this.StepButton.Size = new System.Drawing.Size(75, 23);
             this.StepButton.TabIndex = 14;
@@ -183,7 +185,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(735, 447);
+            this.ClientSize = new System.Drawing.Size(799, 513);
             this.Controls.Add(this.StepButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.DTextBox);
