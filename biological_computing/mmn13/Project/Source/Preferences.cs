@@ -21,7 +21,7 @@ namespace WindowsFormsApplication1.Source
         Preferences()
         {
             m_preferences = new int[10, 10];
-            RandomizePreferences();
+            Randomize();
         }
 
         static public Preferences GetInstance()
@@ -31,7 +31,7 @@ namespace WindowsFormsApplication1.Source
             return m_instance;
         }
 
-        void RandomizePreferences()
+        public void Randomize()
         {
             HashSet<int> set = new HashSet<int>();
             for (int i = 0; i < 10; i++)

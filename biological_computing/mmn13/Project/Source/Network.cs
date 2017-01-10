@@ -92,7 +92,7 @@ namespace WindowsFormsApplication1.Source
                 }
             }
 
-            return (100 - Preference);
+            return (100.0 * (90.0 - Preference)) / 90.0;
         }
 
         

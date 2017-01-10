@@ -96,7 +96,7 @@ namespace WindowsFormsApplication1
 
             if (mark)
             {
-                TotalHappinessTextBox.Text = m_Network.GetTotalHappines().ToString() + "%";
+                TotalHappinessTextBox.Text = String.Format("{0:00.00}%", m_Network.GetTotalHappines()); 
             }
         }
 
@@ -108,6 +108,9 @@ namespace WindowsFormsApplication1
 
         private void RandomizeButton_Click(object sender, EventArgs e)
         {
+            Source.Preferences Data = Source.Preferences.GetInstance();
+            Data.Randomize();
+
             m_Network.Randomize();
             dump();
         }
@@ -117,17 +120,18 @@ namespace WindowsFormsApplication1
             m_running_start_time = DateTime.Now;
             DateTime time_sample = m_running_start_time;
 
-            dumpCallback d = new dumpCallback(dump);
-
             bool Stable = false;
             while (m_running && !Stable)
             {
                 Stable = m_Network.Step(false);
-                Invoke(d, new object[] { false });
+                dumpCallback d = new dumpCallback(dump);
+                if (d != null) Invoke(d, new object[] { false });
             }
 
             m_running = false;
-            Invoke(d, new object[] { true });
+
+            dumpCallback d2 = new dumpCallback(dump);
+            if (d2 != null) Invoke(d2, new object[] { true });
         }
 
         private void RunButton_Click(object sender, EventArgs e)
@@ -147,6 +151,7 @@ namespace WindowsFormsApplication1
 
         private void ExitButton_Click(object sender, EventArgs e)
         {
+            m_running = false;
             Application.Exit();
         }
 
