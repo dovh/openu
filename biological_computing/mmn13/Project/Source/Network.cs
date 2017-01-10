@@ -23,7 +23,6 @@ namespace WindowsFormsApplication1.Source
         {
             m_width = width;
             m_height = height;
-            //m_neurons = new Neuron[m_width, m_height + 1];
             m_neurons = new Neuron[m_height, m_width];
 
             m_step_x = 0;
@@ -33,15 +32,6 @@ namespace WindowsFormsApplication1.Source
             for (int y = 0; y < m_height; y++)
                 for (int x = 0; x < m_width; x++)
                     m_neurons[y, x] = new Neuron(x, y);
-
-            // Create N0 neuron - Represent Factor C - Number of total set neurons 
-            //Neuron N0 = new NeuronN0(0, m_height + 1);
-            //Neuron N0 = new Neuron(0, m_height + 1);
-            //m_neurons[0, m_height] = N0;
-
-            // Create N1 neuron - Represent Factor D - Total happiness 
-            //Neuron N1 = new Neuron(1, m_height + 1);
-            //m_neurons[1, m_height] = N1;
 
             // connect matrix neurons 
             for (int y = 0; y < m_height; y++)
@@ -61,82 +51,20 @@ namespace WindowsFormsApplication1.Source
                             N.ConnectInput(Ni);
                         }
                     }
-
-                    //N.ConnectInput(N0);
-                    //N0.ConnectInput(N);
-
-                    //N.ConnectInput(N1);
-                    //N1.ConnectInput(N);
                 }
             }
         }
 
         public void Randomize()
         {
-            //Neuron N0 = m_neurons[0, m_height];
-            //Neuron N1 = m_neurons[1, m_height];
-
             // randomize neurons values 
             for (int y = 0; y < m_height; y++)
                 for (int x = 0; x < m_width; x++)
                     m_neurons[y, x].Randomize();
-
-            //N0.Randomize();
-            //N1.Randomize();
         }
-
-        /*public void UpdateWeights()
-        {
-            Neuron N0 = m_neurons[0, m_height];
-            Neuron N1 = m_neurons[1, m_height];
-
-            // Update matrix neurons weight 
-            for (int y = 0; y < m_height; y++)
-            {
-                for (int x = 0; x < m_width; x++)
-                {
-                    Neuron N = m_neurons[x, y];
-
-                    for (int y2 = 0; y2 < m_height; y2++)
-                    {
-                        for (int x2 = 0; x2 < m_width; x2++)
-                        {
-                            if (x == x2 && y == y2)
-                                continue;
-
-                            Neuron Ni = m_neurons[x2, y2];
-
-                            double Weight = 0;
-                            if (x == x2 || y == y2)
-                            {
-                                if (N.Value == 1 && Ni.Value == 1)
-                                    Weight = -1;
-                                else if (N.Value == 1 && Ni.Value == -1)
-                                    Weight = -1.1;
-                                else if (N.Value == -1 && Ni.Value == 1)
-                                    Weight = -1.1;
-                                else // if (N.Value == -1 && Ni.Value == -1)
-                                    Weight = 0;
-                            }
-
-                            N.UpdateWeight(Ni, 0.5 * m_B * Weight);
-                        }
-                    }
-
-                    N.UpdateWeight(N0, m_C * N.Value);
-                    N0.UpdateWeight(N, m_C * N.Value);
-
-                    //N.UpdateWeight(N1, m_D);
-                    //N1.UpdateWeight(N, m_D);
-                }
-            }
-        }*/
 
         public void Step(bool verbose)
         {
-            //Neuron N0 = m_neurons[0, m_height];
-            //Neuron N1 = m_neurons[1, m_height];
-
             int x = m_step_x;
             int y = m_step_y;
 
@@ -158,10 +86,6 @@ namespace WindowsFormsApplication1.Source
                     N.Calculate(verbose);
                 }
             }
-
-            //N0.Calculate();
-            //N1.Calculate();
-
         }
 
         
