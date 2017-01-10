@@ -8,9 +8,6 @@ namespace WindowsFormsApplication1.Source
 {
     class Network
     {
-
-        int m_step_x, m_step_y;
-
         int m_width, m_height;
         Neuron[,] m_neurons;
 
@@ -24,9 +21,6 @@ namespace WindowsFormsApplication1.Source
             m_width = width;
             m_height = height;
             m_neurons = new Neuron[m_height, m_width];
-
-            m_step_x = 0;
-            m_step_y = 0;
 
             // Create matrix neurons 
             for (int y = 0; y < m_height; y++)
@@ -63,29 +57,42 @@ namespace WindowsFormsApplication1.Source
                     m_neurons[y, x].Randomize();
         }
 
-        public void Step(bool verbose)
+        public bool Step(bool verbose)
         {
-            int x = m_step_x;
-            int y = m_step_y;
-
-            m_step_x++;
-            if (m_step_x == m_width)
-            {
-                m_step_x = 0;
-                m_step_y++;
-                if (m_step_y == m_height)
-                    m_step_y = 0;
-            }
+            bool Stable = true;
 
             // Calculate matrix neurons weight 
-            for ( y = 0; y < m_height; y++)
+            for (int y = 0; y < m_height; y++)
             {
-                for ( x = 0; x < m_width; x++)
+                for (int x = 0; x < m_width; x++)
                 {
                     Neuron N = m_neurons[y, x];
-                    N.Calculate(verbose);
+                    Stable &= N.Calculate(verbose);
                 }
             }
+
+            return Stable;
+        }
+
+        public double GetTotalHappines()
+        {
+            Preferences data = Preferences.GetInstance(); 
+            int Preference = 0;
+
+            // Calculate matrix neurons weight 
+            for (int y = 0; y < m_height; y++)
+            {
+                for (int x = 0; x < m_width; x++)
+                {
+                    Neuron N = m_neurons[y, x];
+                    if (0 < N.Value)
+                    {
+                        Preference += data.GetPreferenceByMen(y, x + 1) - 1;
+                    }
+                }
+            }
+
+            return (100 - Preference);
         }
 
         

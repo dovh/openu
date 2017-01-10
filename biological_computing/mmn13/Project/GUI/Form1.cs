@@ -51,7 +51,7 @@ namespace WindowsFormsApplication1
 
             // Initialize left preference col 
             for (int i = 0; i < 10; i++) {
-                PreferencesGridView.Rows[i].Cells[0].Value = i.ToString();
+                PreferencesGridView.Rows[i].Cells[0].Value = (i+1).ToString();
                 PreferencesGridView.Rows[i].Cells[0].Style.ApplyStyle(m_BoldStyle);
             }
 
@@ -67,24 +67,41 @@ namespace WindowsFormsApplication1
             Source.Preferences data = Source.Preferences.GetInstance();
             for (int y = 0; y < 10; y++)
             {
+                int marked = -1; 
                 for (int x = 0; x < 10; x++)
                 {
-                    PreferencesGridView.Rows[y].Cells[x + 1].Value = data.GetPreferenceByIndex(y, x).ToString();
-
                     Source.Neuron N = m_Network.Neuron(x, y);
                     NetworkGridView.Rows[y].Cells[x].Value = N.ToString(); 
 
                     if (mark && N.Value > 0)
+                    {
                         NetworkGridView.Rows[y].Cells[x].Style.ApplyStyle(m_RedStyle);
+                        marked = x + 1;
+                    }
                     else
                         NetworkGridView.Rows[y].Cells[x].Style.ApplyStyle(m_DefaultStyle);
                 }
+
+                for (int x = 0; x < 10; x++)
+                {
+                    int Preference = data.GetPreferenceByIndex(y, x);
+                    PreferencesGridView.Rows[y].Cells[x + 1].Value = Preference.ToString();
+
+                    if (mark && marked == Preference)
+                        PreferencesGridView.Rows[y].Cells[x + 1].Style.ApplyStyle(m_RedStyle);
+                    else
+                        PreferencesGridView.Rows[y].Cells[x + 1].Style.ApplyStyle(m_DefaultStyle);
+                }
+            }
+
+            if (mark)
+            {
+                TotalHappinessTextBox.Text = m_Network.GetTotalHappines().ToString() + "%";
             }
         }
 
         private void StepButton_Click(object sender, EventArgs e)
         {
-            //m_Network.UpdateWeights();
             m_Network.Step(true);
             dump();
         }
@@ -102,33 +119,14 @@ namespace WindowsFormsApplication1
 
             dumpCallback d = new dumpCallback(dump);
 
-            while (m_running)
+            bool Stable = false;
+            while (m_running && !Stable)
             {
-                // create a new generation 
-                //m_ga.Create_Generation();
-
-                // detect and start a local minimum escape astrategy 
-                //m_ga.Local_Minimum_Escape();
-
-                // refresh chart every 30 seconds
-                //TimeSpan time_diff = DateTime.Now - time_sample;
-                //if (time_diff.Seconds >= m_refreash_rate)
-                {
-                    //time_sample = DateTime.Now;
-
-                    m_Network.Step(false);
-
-                    //Debug.Assert(ChartControl.InvokeRequired);
-                    
-                    Invoke(d, new object[] { false });
-
-                    // stop after 3 minutes 
-                    //time_diff = DateTime.Now - m_running_start_time;
-                    //if (time_diff.Minutes >= 3)
-                    //    m_running = false;
-                }
+                Stable = m_Network.Step(false);
+                Invoke(d, new object[] { false });
             }
 
+            m_running = false;
             Invoke(d, new object[] { true });
         }
 
@@ -136,9 +134,6 @@ namespace WindowsFormsApplication1
         {
             if (!m_running)
             {
-                //read_controls();
-                //dump();
-
                 m_running = true;
                 Thread thread = new Thread(runThread);
                 thread.Start();
@@ -148,7 +143,6 @@ namespace WindowsFormsApplication1
         private void StopButton_Click(object sender, EventArgs e)
         {
             m_running = false;
-            
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
