@@ -44,10 +44,10 @@ namespace WindowsFormsApplication1.Source
 
         public virtual bool Calculate(bool verbose)
         {
-            Preferences Data = Preferences.GetInstance();
-            double A = 0.9;
-            double B = 0.9;
-            double C = 1;
+            Preferences Data = Preferences.GetInstance(); 
+            double A = 1;
+            double B = 1;
+            double C = 1.1;
             double D = 0.4;
             double prevValue = m_Value;
 
@@ -62,15 +62,13 @@ namespace WindowsFormsApplication1.Source
                     if (Ni.Y == Y)
                     {
                         newValue -= A * Ni.Value;
-                        if (selfPreference > Data.GetPreferenceByMen(Ni.Y, Ni.X + 1))
-                            newValue -= D * Ni.Value;
+                        newValue += D * (Data.GetPreferenceByMen(Ni.Y, Ni.X + 1) - selfPreference);
                     }
 
                     if (Ni.X == X)
                     {
                         newValue -= B * Ni.Value;
-                        if (selfPreference > Data.GetPreferenceByMen(Ni.Y, Ni.X + 1))
-                            newValue -= D * Ni.Value;
+                        newValue += D * (Data.GetPreferenceByMen(Ni.Y, Ni.X + 1) - selfPreference);
                     }
 
                     Sum += Ni.Value;
@@ -81,7 +79,7 @@ namespace WindowsFormsApplication1.Source
             newValue = Math.Atan(newValue);
 
             //m_Value = newValue; 
-            m_Value = 0.9 * prevValue + 0.1 * newValue;
+            m_Value = 0.8 * prevValue + 0.2 * newValue;
 
             double Change = Math.Abs(m_Value / prevValue - 1);
             bool Stable = Change < 0.0005;
