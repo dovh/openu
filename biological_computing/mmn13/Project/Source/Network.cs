@@ -95,6 +95,29 @@ namespace WindowsFormsApplication1.Source
             return (100.0 * (90.0 - Preference)) / 90.0;
         }
 
+        public bool IsLegaySolution()
+        {
+            HashSet<int> MenSelected = new HashSet<int>();
+
+            // Calculate matrix neurons weight 
+            for (int y = 0; y < m_height; y++)
+            {
+                for (int x = 0; x < m_width; x++)
+                {
+                    Neuron N = m_neurons[y, x];
+                    if (0 < N.Value)
+                    {
+                        if (MenSelected.Contains(x))
+                            return false;
+
+                        MenSelected.Add(x);
+                    }
+                }
+            }
+
+            return MenSelected.Count == 10;
+        }
+        
         
     }
 }

@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.Diagnostics;
 
 namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
         bool m_running;
+        bool m_batch;
         DateTime m_running_start_time;
         DataGridViewCellStyle m_DefaultStyle, m_RedStyle, m_BoldStyle;
 
@@ -55,6 +57,9 @@ namespace WindowsFormsApplication1
                 PreferencesGridView.Rows[i].Cells[0].Style.ApplyStyle(m_BoldStyle);
             }
 
+            m_running = false;
+            m_batch = false;
+
             // m_network 
             m_Network = new Source.Network(10, 10);
             m_Network.Randomize();
@@ -95,9 +100,7 @@ namespace WindowsFormsApplication1
             }
 
             if (mark)
-            {
-                TotalHappinessTextBox.Text = String.Format("{0:00.00}%", m_Network.GetTotalHappines()); 
-            }
+                TotalHappinessTextBox.Text = String.Format("{0:00.00}%", m_Network.GetTotalHappines());
         }
 
         private void StepButton_Click(object sender, EventArgs e)
@@ -110,8 +113,8 @@ namespace WindowsFormsApplication1
         {
             Source.Preferences Data = Source.Preferences.GetInstance();
             Data.Randomize();
-
             m_Network.Randomize();
+
             dump();
         }
 
@@ -120,18 +123,44 @@ namespace WindowsFormsApplication1
             m_running_start_time = DateTime.Now;
             DateTime time_sample = m_running_start_time;
 
-            bool Stable = false;
-            while (m_running && !Stable)
+            for(int batch_index = 0; batch_index<100; batch_index++)
             {
-                Stable = m_Network.Step(false);
-                dumpCallback d = new dumpCallback(dump);
-                if (d != null) Invoke(d, new object[] { false });
+                bool Stable = false;
+                while (m_running && !Stable)
+                {
+                    Stable = m_Network.Step(false);
+                    dumpCallback d = new dumpCallback(dump);
+                    if (d != null) Invoke(d, new object[] { false });
+                }
+
+                dumpCallback d2 = new dumpCallback(dump);
+                if (d2 != null) Invoke(d2, new object[] { true });
+
+                if (m_batch && m_running)
+                {
+                    Console.WriteLine("{0}: {1}, {2}", batch_index, TotalHappinessTextBox.Text, m_Network.IsLegaySolution());
+
+                    if (!m_Network.IsLegaySolution())
+                        Console.Write("");
+
+                    Source.Preferences Data = Source.Preferences.GetInstance();
+                    Data.Randomize();
+                    m_Network.Randomize();
+                }
+                else
+                    break;
             }
 
             m_running = false;
+            m_batch = false;
+        }
 
-            dumpCallback d2 = new dumpCallback(dump);
-            if (d2 != null) Invoke(d2, new object[] { true });
+        private void RunBatchButton_Click(object sender, EventArgs e)
+        {
+            if (!m_running)
+                m_batch = true;
+
+            RunButton_Click(sender, e);
         }
 
         private void RunButton_Click(object sender, EventArgs e)
@@ -151,9 +180,12 @@ namespace WindowsFormsApplication1
 
         private void ExitButton_Click(object sender, EventArgs e)
         {
+            m_batch = false;
             m_running = false;
             Application.Exit();
         }
+
+        
 
         
     }
