@@ -66,22 +66,22 @@ namespace WindowsFormsApplication1
             dump();
         }
 
-        delegate void dumpCallback(bool mark = false);
-        void dump(bool mark = false)
+        delegate void dumpCallback(bool Mark = false);
+        void dump(bool Mark = false)
         {
             Source.Preferences data = Source.Preferences.GetInstance();
             for (int y = 0; y < 10; y++)
             {
-                int marked = -1; 
+                int Marked = -1; 
                 for (int x = 0; x < 10; x++)
                 {
                     Source.Neuron N = m_Network.Neuron(x, y);
                     NetworkGridView.Rows[y].Cells[x].Value = N.ToString(); 
 
-                    if (mark && N.Value > 0)
+                    if (Mark && N.Value > 0)
                     {
                         NetworkGridView.Rows[y].Cells[x].Style.ApplyStyle(m_RedStyle);
-                        marked = x + 1;
+                        Marked = x + 1;
                     }
                     else
                         NetworkGridView.Rows[y].Cells[x].Style.ApplyStyle(m_DefaultStyle);
@@ -92,21 +92,21 @@ namespace WindowsFormsApplication1
                     int Preference = data.GetPreferenceByIndex(y, x);
                     PreferencesGridView.Rows[y].Cells[x + 1].Value = Preference.ToString();
 
-                    if (mark && marked == Preference)
+                    if (Mark && Marked == Preference)
                         PreferencesGridView.Rows[y].Cells[x + 1].Style.ApplyStyle(m_RedStyle);
                     else
                         PreferencesGridView.Rows[y].Cells[x + 1].Style.ApplyStyle(m_DefaultStyle);
                 }
             }
 
-            if (mark)
+            if (Mark)
                 TotalHappinessTextBox.Text = String.Format("{0:00.00}%", m_Network.GetTotalHappines());
         }
 
         private void StepButton_Click(object sender, EventArgs e)
         {
             m_Network.Step(true);
-            dump();
+            dump(true);
         }
 
         private void RandomizeButton_Click(object sender, EventArgs e)

@@ -62,19 +62,36 @@ namespace WindowsFormsApplication1.Source
                     if (Ni.Y == Y)
                     {
                         newValue -= A * Ni.Value;
-                        if (selfPreference > Data.GetPreferenceByMen(Ni.Y, Ni.X + 1))
+
+                        if (selfPreference == Data.GetPreferenceByMen(Ni.Y, Ni.X + 1))
+                        {
+                            if (X < Ni.X)
+                                newValue -= D * Ni.Value;
+                            else
+                                newValue += D * Ni.Value;
+                        }
+                        else if (selfPreference > Data.GetPreferenceByMen(Ni.Y, Ni.X + 1))
                             newValue -= D * Ni.Value;
                         else
-                            newValue += D * Ni.Value;
+                        //    newValue += D * Ni.Value + RandomGen.Get * 0.02;
+                            newValue += D * Ni.Value * 1.05;
                     }
 
                     if (Ni.X == X)
                     {
                         newValue -= B * Ni.Value;
-                        if (selfPreference > Data.GetPreferenceByMen(Ni.Y, Ni.X + 1))
+
+                        if (selfPreference == Data.GetPreferenceByMen(Ni.Y, Ni.X + 1))
+                        {
+                            if (Y < Ni.Y)
+                                newValue -= D * Ni.Value;
+                            else
+                                newValue += D * Ni.Value;
+                        }
+                        else if (selfPreference > Data.GetPreferenceByMen(Ni.Y, Ni.X + 1))
                             newValue -= D * Ni.Value;
                         else
-                            newValue += D * Ni.Value;
+                            newValue += D * Ni.Value * 1.05;
                     }
 
                     Sum += Ni.Value;
