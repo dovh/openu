@@ -47,8 +47,8 @@ namespace WindowsFormsApplication1.Source
             Preferences Data = Preferences.GetInstance();
             double A = 1;
             double B = 1;
-            double C = 1.1;
-            double D = 0.4;
+            double C = 1;
+            double D = 1;
             double prevValue = m_Value;
 
             int selfPreference = Data.GetPreferenceByMen(Y, X + 1);
@@ -63,35 +63,22 @@ namespace WindowsFormsApplication1.Source
                     {
                         newValue -= A * Ni.Value;
 
-                        if (selfPreference == Data.GetPreferenceByMen(Ni.Y, Ni.X + 1))
-                        {
-                            if (X < Ni.X)
-                                newValue -= D * Ni.Value;
-                            else
-                                newValue += D * Ni.Value;
-                        }
-                        else if (selfPreference > Data.GetPreferenceByMen(Ni.Y, Ni.X + 1))
+                        Debug.Assert(selfPreference != Data.GetPreferenceByMen(Ni.Y, Ni.X + 1));
+                        if (selfPreference >  Data.GetPreferenceByMen(Ni.Y, Ni.X + 1))
                             newValue -= D * Ni.Value;
                         else
-                        //    newValue += D * Ni.Value + RandomGen.Get * 0.02;
-                            newValue += D * Ni.Value * 1.05;
+                            newValue += D * Ni.Value;
                     }
 
                     if (Ni.X == X)
                     {
                         newValue -= B * Ni.Value;
 
-                        if (selfPreference == Data.GetPreferenceByMen(Ni.Y, Ni.X + 1))
-                        {
-                            if (Y < Ni.Y)
-                                newValue -= D * Ni.Value;
-                            else
-                                newValue += D * Ni.Value;
-                        }
-                        else if (selfPreference > Data.GetPreferenceByMen(Ni.Y, Ni.X + 1))
+                        if ( (selfPreference == Data.GetPreferenceByMen(Ni.Y, Ni.X + 1) && Value < Ni.Value) || 
+                              selfPreference > Data.GetPreferenceByMen(Ni.Y, Ni.X + 1))
                             newValue -= D * Ni.Value;
                         else
-                            newValue += D * Ni.Value * 1.05;
+                            newValue += D * Ni.Value;
                     }
 
                     Sum += Ni.Value;
