@@ -86,7 +86,7 @@ namespace WindowsFormsApplication1.Source
             }
 
             newValue -= C * (Sum - 10);
-            newValue = Math.Atan(newValue);
+            newValue = Math.Tanh(newValue);
 
             //m_Value = newValue; 
             m_Value = 0.8 * prevValue + 0.2 * newValue;

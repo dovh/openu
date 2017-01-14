@@ -34,18 +34,12 @@
             this.RunButton = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
             this.RandomizeButton = new System.Windows.Forms.Button();
-            this.ATextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.BTextBox = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.CTextBox = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.DTextBox = new System.Windows.Forms.TextBox();
             this.StepButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.TotalHappinessTextBox = new System.Windows.Forms.TextBox();
             this.RunBatchButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.LegalSolutionTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.NetworkGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PreferencesGridView)).BeginInit();
             this.SuspendLayout();
@@ -106,73 +100,9 @@
             this.RandomizeButton.Name = "RandomizeButton";
             this.RandomizeButton.Size = new System.Drawing.Size(75, 23);
             this.RandomizeButton.TabIndex = 5;
-            this.RandomizeButton.Text = "Randomize";
+            this.RandomizeButton.Text = "Initialize";
             this.RandomizeButton.UseVisualStyleBackColor = true;
             this.RandomizeButton.Click += new System.EventHandler(this.RandomizeButton_Click);
-            // 
-            // ATextBox
-            // 
-            this.ATextBox.Location = new System.Drawing.Point(722, 274);
-            this.ATextBox.Name = "ATextBox";
-            this.ATextBox.Size = new System.Drawing.Size(60, 20);
-            this.ATextBox.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(664, 281);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "A Factor: ";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(664, 307);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "B Factor:";
-            // 
-            // BTextBox
-            // 
-            this.BTextBox.Location = new System.Drawing.Point(722, 300);
-            this.BTextBox.Name = "BTextBox";
-            this.BTextBox.Size = new System.Drawing.Size(60, 20);
-            this.BTextBox.TabIndex = 8;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(664, 333);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 13);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "C Factor:";
-            // 
-            // CTextBox
-            // 
-            this.CTextBox.Location = new System.Drawing.Point(722, 326);
-            this.CTextBox.Name = "CTextBox";
-            this.CTextBox.Size = new System.Drawing.Size(60, 20);
-            this.CTextBox.TabIndex = 10;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(664, 359);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 13);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "D Factor:";
-            // 
-            // DTextBox
-            // 
-            this.DTextBox.Location = new System.Drawing.Point(722, 352);
-            this.DTextBox.Name = "DTextBox";
-            this.DTextBox.Size = new System.Drawing.Size(60, 20);
-            this.DTextBox.TabIndex = 12;
             // 
             // StepButton
             // 
@@ -187,7 +117,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(630, 385);
+            this.label5.Location = new System.Drawing.Point(630, 286);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(87, 13);
             this.label5.TabIndex = 16;
@@ -195,7 +125,7 @@
             // 
             // TotalHappinessTextBox
             // 
-            this.TotalHappinessTextBox.Location = new System.Drawing.Point(722, 378);
+            this.TotalHappinessTextBox.Location = new System.Drawing.Point(722, 279);
             this.TotalHappinessTextBox.Name = "TotalHappinessTextBox";
             this.TotalHappinessTextBox.ReadOnly = true;
             this.TotalHappinessTextBox.Size = new System.Drawing.Size(60, 20);
@@ -211,23 +141,34 @@
             this.RunBatchButton.UseVisualStyleBackColor = true;
             this.RunBatchButton.Click += new System.EventHandler(this.RunBatchButton_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(630, 312);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(75, 13);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Legal solution:";
+            // 
+            // LegalSolutionTextBox
+            // 
+            this.LegalSolutionTextBox.Location = new System.Drawing.Point(722, 305);
+            this.LegalSolutionTextBox.Name = "LegalSolutionTextBox";
+            this.LegalSolutionTextBox.ReadOnly = true;
+            this.LegalSolutionTextBox.Size = new System.Drawing.Size(60, 20);
+            this.LegalSolutionTextBox.TabIndex = 18;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(799, 491);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.LegalSolutionTextBox);
             this.Controls.Add(this.RunBatchButton);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.TotalHappinessTextBox);
             this.Controls.Add(this.StepButton);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.DTextBox);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.CTextBox);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.BTextBox);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.ATextBox);
             this.Controls.Add(this.RandomizeButton);
             this.Controls.Add(this.StopButton);
             this.Controls.Add(this.RunButton);
@@ -251,18 +192,12 @@
         private System.Windows.Forms.Button RunButton;
         private System.Windows.Forms.Button StopButton;
         private System.Windows.Forms.Button RandomizeButton;
-        private System.Windows.Forms.TextBox ATextBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox BTextBox;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox CTextBox;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox DTextBox;
         private System.Windows.Forms.Button StepButton;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox TotalHappinessTextBox;
         private System.Windows.Forms.Button RunBatchButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox LegalSolutionTextBox;
     }
 }
 

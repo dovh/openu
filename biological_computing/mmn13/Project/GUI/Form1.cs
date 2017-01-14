@@ -100,7 +100,19 @@ namespace WindowsFormsApplication1
             }
 
             if (Mark)
+            { 
                 TotalHappinessTextBox.Text = String.Format("{0:00.00}%", m_Network.GetTotalHappines());
+                if (m_Network.IsLegaySolution())
+                {
+                    LegalSolutionTextBox.Text = "Yes";
+                    LegalSolutionTextBox.BackColor = Color.Green;
+                }
+                else
+                {
+                    LegalSolutionTextBox.Text = "NO";
+                    LegalSolutionTextBox.BackColor = Color.Red;
+                }
+            }
         }
 
         private void StepButton_Click(object sender, EventArgs e)
